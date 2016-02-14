@@ -29,8 +29,7 @@ public class MainActivity extends Activity {
         addToEmergency();
         populateMembersList();
         populateEmergencyList();
-
-
+        //Test
 
 
 
