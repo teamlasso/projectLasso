@@ -15,7 +15,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class ContactsActivity extends Activity {
     private List<User> members = new ArrayList<User>();
     private List<User> emergencyContact = new ArrayList<User>();
 
@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
         //Set to dynamic. Users could be member or emergency.
         public MyListAdapter(List<User> listOfUser){
             //Use the List that is passed in from the parameter.
-            super(MainActivity.this, R.layout.item_view, listOfUser);
+            super(ContactsActivity.this, R.layout.item_view, listOfUser);
             localList = listOfUser;
         }
         @Override
