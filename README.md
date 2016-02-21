@@ -1,4 +1,4 @@
-# projectLasso
+# Our git protocol
 1) Before working, pull most up-to-date code from ‘feature’ branch
    > base: <your initials>     compare: feature
 
