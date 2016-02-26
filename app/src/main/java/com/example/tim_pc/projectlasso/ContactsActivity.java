@@ -45,7 +45,7 @@ public class ContactsActivity extends Activity {
         members.add(new User("Jim Bob", R.mipmap.face1));
         members.add(new User("John Doe", R.mipmap.face));
         final ArrayAdapter<User> adapter = new MyListAdapter(members);
-        ListView membersList = (ListView) findViewById(R.id.membersList);
+        final ListView membersList = (ListView) findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -54,6 +54,12 @@ public class ContactsActivity extends Activity {
             public void onClick(View view) {
                 members.add(new User("A B", R.mipmap.face1));
                 adapter.notifyDataSetChanged();
+                membersList.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        membersList.setSelection(membersList.getCount()-1);
+                    }
+                });
             }
         });
 
