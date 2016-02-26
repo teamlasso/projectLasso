@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.content.Context;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -25,11 +27,25 @@ public class ContactsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        addToMembers();
-        addToEmergency();
+        members.add(new User("Members"));
+        members.add(new User("Tim Yim", R.mipmap.face));
+        members.add(new User("1", R.mipmap.face));
+        members.add(new User("2", R.mipmap.face));
+        members.add(new User("3", R.mipmap.face));
+        members.add(new User("4", R.mipmap.face));
+        members.add(new User("5", R.mipmap.face));
+        members.add(new User("6", R.mipmap.face));
+        members.add(new User("7", R.mipmap.face));
+        members.add(new User("8", R.mipmap.face));
+        members.add(new User("9", R.mipmap.face));
+        members.add(new User("10", R.mipmap.face));
+        members.add(new User("Emergency Contacts"));
+        members.add(new User("Jim Bob", R.mipmap.face1));
+        members.add(new User("John Doe", R.mipmap.face));
         populateMembersList();
-        populateEmergencyList();
-        //Testing 
+        //Testing
+        //ContactsListAdapter adapter = new ContactsListAdapter(this, members);
+        //setListAdapter(adapter);
 
 
 
@@ -42,6 +58,7 @@ public class ContactsActivity extends Activity {
 
     //Method for adding bulk to members list
     private void addToMembers(){
+        members.add(new User("Members"));
         members.add(new User("Tim Yim", R.mipmap.face));
     }
 
@@ -52,6 +69,7 @@ public class ContactsActivity extends Activity {
 
     //Method for add to the emergency list.
     private void addToEmergency(){
+        emergencyContact.add(new User("Emergency Contacts"));
         emergencyContact.add(new User("Jim Bob", R.mipmap.face1));
         emergencyContact.add(new User("John Doe", R.mipmap.face));
     }
@@ -59,7 +77,7 @@ public class ContactsActivity extends Activity {
     //Populates the Emergency List on the app itself.
     private void populateEmergencyList(){
         ArrayAdapter<User> adapter = new MyListAdapter(emergencyContact);
-        ListView membersList = (ListView) findViewById(R.id.emergencyList);
+        ListView membersList = (ListView) findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
 
     }
@@ -73,8 +91,6 @@ public class ContactsActivity extends Activity {
 
     }
 
-    //Creates a dynamic adapter to handle both members and emergency contacts.
-    //Parameter: The parameter is the list of users.
     private class MyListAdapter extends ArrayAdapter<User> {
         //Create copy of the list since there are two lists.
         List<User> localList;
@@ -85,26 +101,88 @@ public class ContactsActivity extends Activity {
             super(ContactsActivity.this, R.layout.item_view, listOfUser);
             localList = listOfUser;
         }
+
+        @Override
+        public int getViewTypeCount(){
+
+            return 2;
+        }
+
+        @Override
+        public int getItemViewType(int position){
+
+            return getItem(position).getItemViewType();
+        }
+
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
             //Get view even is view is null.
             View itemView = convertView;
-            if (itemView == null) {
-                itemView = getLayoutInflater().inflate(R.layout.item_view, parent, false);
+            int rowType = getItemViewType(position);
+
+//            if (convertView == null) {
+//                switch (rowType) {
+//                    case 0:
+//
+//
+//                        //Iterate through the list of Users(member or emergency).
+//                        User currentMember = localList.get(position);
+//
+//                        //Setting the image of the User
+//                        ImageView imageView = (ImageView)itemView.findViewById(R.id.item_icon);
+//                        imageView.setImageResource(currentMember.getImageID());
+//
+//                        //Setting the name of the User
+//                        TextView nameText = (TextView) itemView.findViewById(R.id.item_txtName);
+//                        nameText.setText(currentMember.getName());
+//                        break;
+//                    case 1:
+//                        itemView = getLayoutInflater().inflate(R.layout.item_header, parent, false);
+//
+//                        User currentHeader = localList.get(position);
+//
+//                        TextView headerText = (TextView) itemView.findViewById(R.id.separator);
+//                        headerText.setText(currentHeader.getName());
+//
+//                        break;
+//                }
+//            }
+
+            if(convertView == null){
+                if(rowType == 0){
+                    itemView = getLayoutInflater().inflate(R.layout.item_view, parent, false);
+                }
+                else{
+                    itemView = getLayoutInflater().inflate(R.layout.item_header, parent, false);
+                }
+            }
+            else{
+                itemView = convertView;
             }
 
-            //Iterate through the list of Users(member or emergency).
-            User currentMember = localList.get(position);
+            if(rowType == 0){
+                //Iterate through the list of Users(member or emergency).
+                User currentMember = localList.get(position);
 
-            //Setting the image of the User
-            ImageView imageView = (ImageView)itemView.findViewById(R.id.item_icon);
-            imageView.setImageResource(currentMember.getImageID());
+                //Setting the image of the User
+                ImageView imageView = (ImageView)itemView.findViewById(R.id.item_icon);
+                imageView.setImageResource(currentMember.getImageID());
 
-            //Setting the name of the User
-            TextView nameText = (TextView) itemView.findViewById(R.id.item_txtName);
-            nameText.setText(currentMember.getName());
+                //Setting the name of the User
+                TextView nameText = (TextView) itemView.findViewById(R.id.item_txtName);
+                nameText.setText(currentMember.getName());
+            }
+            else{
+                User currentHeader = localList.get(position);
+
+                TextView headerText = (TextView) itemView.findViewById(R.id.separator);
+                headerText.setText(currentHeader.getName());
+            }
 
             return itemView;
         }
     }
+
+
 }

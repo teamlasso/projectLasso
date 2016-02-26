@@ -8,41 +8,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.tim_pc.myapplication.MainActivity">
+    tools:context="com.example.tim_pc.myapplication.MainActivity"
+    android:weightSum="1">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Members"
-            android:id="@+id/members" />
-
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="159dp"
-            android:id="@+id/membersList"
-            tools:listitem="@android:layout/simple_list_item_1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Emergency Contact"
-            android:id="@+id/emergencyContact" />
-
-        <ListView
-            tools:listitem="@android:layout/simple_list_item_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/emergencyList"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
+        android:layout_height="507dp"
+        android:id="@+id/membersList"
+        tools:listitem="@android:layout/simple_list_item_1" />
 
 </LinearLayout>

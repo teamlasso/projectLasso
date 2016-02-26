@@ -1,3 +1,4 @@
+
 package com.example.tim_pc.projectlasso;
 
 /**
@@ -6,6 +7,7 @@ package com.example.tim_pc.projectlasso;
 public class User {
     private String name;
     private int imageID;
+    private int itemViewType;
 
 
     //fg
@@ -13,6 +15,13 @@ public class User {
         super();
         this.name = name;
         this.imageID = imageID;
+        this.itemViewType = 0;
+    }
+
+    public User(String name){
+        super();
+        this.name = name;
+        this.itemViewType = 1;
     }
 
     public String getName(){
@@ -21,5 +30,9 @@ public class User {
 
     public int getImageID(){
         return imageID;
+    }
+
+    public int getItemViewType(){
+        return itemViewType;
     }
 }
