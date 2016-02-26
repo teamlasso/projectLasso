@@ -1,6 +1,7 @@
 package com.example.tim_pc.projectlasso;
 
 import android.app.Activity;
+import android.support.design.widget.*;
 import android.app.ListActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class ContactsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         members.add(new User("Members"));
         members.add(new User("Tim Yim", R.mipmap.face));
         members.add(new User("1", R.mipmap.face));
@@ -42,7 +44,19 @@ public class ContactsActivity extends Activity {
         members.add(new User("Emergency Contacts"));
         members.add(new User("Jim Bob", R.mipmap.face1));
         members.add(new User("John Doe", R.mipmap.face));
-        populateMembersList();
+        final ArrayAdapter<User> adapter = new MyListAdapter(members);
+        ListView membersList = (ListView) findViewById(R.id.membersList);
+        membersList.setAdapter(adapter);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                members.add(new User("A B", R.mipmap.face1));
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         //Testing
         //ContactsListAdapter adapter = new ContactsListAdapter(this, members);
         //setListAdapter(adapter);
@@ -121,43 +135,17 @@ public class ContactsActivity extends Activity {
             View itemView = convertView;
             int rowType = getItemViewType(position);
 
-//            if (convertView == null) {
-//                switch (rowType) {
-//                    case 0:
-//
-//
-//                        //Iterate through the list of Users(member or emergency).
-//                        User currentMember = localList.get(position);
-//
-//                        //Setting the image of the User
-//                        ImageView imageView = (ImageView)itemView.findViewById(R.id.item_icon);
-//                        imageView.setImageResource(currentMember.getImageID());
-//
-//                        //Setting the name of the User
-//                        TextView nameText = (TextView) itemView.findViewById(R.id.item_txtName);
-//                        nameText.setText(currentMember.getName());
-//                        break;
-//                    case 1:
-//                        itemView = getLayoutInflater().inflate(R.layout.item_header, parent, false);
-//
-//                        User currentHeader = localList.get(position);
-//
-//                        TextView headerText = (TextView) itemView.findViewById(R.id.separator);
-//                        headerText.setText(currentHeader.getName());
-//
-//                        break;
-//                }
-//            }
+
 
             if(convertView == null){
-                if(rowType == 0){
+                if(rowType == 0){//Dynamically change amount to inflate depending on what the item type is.
                     itemView = getLayoutInflater().inflate(R.layout.item_view, parent, false);
                 }
                 else{
                     itemView = getLayoutInflater().inflate(R.layout.item_header, parent, false);
                 }
             }
-            else{
+            else{//Make sure itemView is not null.
                 itemView = convertView;
             }
 
@@ -174,8 +162,9 @@ public class ContactsActivity extends Activity {
                 nameText.setText(currentMember.getName());
             }
             else{
+                //Iterate through the list of Users.
                 User currentHeader = localList.get(position);
-
+                //Grab text and add.
                 TextView headerText = (TextView) itemView.findViewById(R.id.separator);
                 headerText.setText(currentHeader.getName());
             }
