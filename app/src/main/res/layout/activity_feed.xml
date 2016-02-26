@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.tim_pc.myapplication.MainActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:padding="6dip" >
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="6dip"
+            android:contentDescription="TODO"
+            android:src="@mipmap/face" />
+
+        <TextView
+            android:id="@+id/secondLine"
+            android:layout_width="fill_parent"
+            android:layout_height="26dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/icon"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="Help!"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/firstLine"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/secondLine"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toRightOf="@id/icon"
+            android:gravity="center_vertical"
+            android:text="Danny"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/statusPic"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent=""
+            android:layout_marginLeft="6dip"
+            android:contentDescription="TODO"
+            android:src="@mipmap/help"
+            android:layout_marginStart="46dp"
+            android:layout_alignTop="@+id/firstLine"
+            android:layout_alignStart="@+id/firstLine"
+            android:layout_above="@+id/secondLine" />
+
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:padding="6dip" >
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="6dip"
+            android:contentDescription="TODO"
+            android:src="@mipmap/face" />
+
+        <TextView
+            android:id="@+id/secondLine"
+            android:layout_width="fill_parent"
+            android:layout_height="26dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/icon"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="Inebriated"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/firstLine"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/secondLine"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toRightOf="@id/icon"
+            android:gravity="center_vertical"
+            android:text="Danny"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/statusPic"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent=""
+            android:layout_marginLeft="6dip"
+            android:contentDescription="TODO"
+            android:src="@mipmap/drunk_emoji"
+            android:layout_marginStart="46dp"
+            android:layout_alignTop="@+id/firstLine"
+            android:layout_alignStart="@+id/firstLine"
+            android:layout_above="@+id/secondLine" />
+
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:padding="6dip" >
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="6dip"
+            android:contentDescription="TODO"
+            android:src="@mipmap/face" />
+
+        <TextView
+            android:id="@+id/secondLine"
+            android:layout_width="fill_parent"
+            android:layout_height="26dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/icon"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="Wavy"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/firstLine"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/secondLine"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toRightOf="@id/icon"
+            android:gravity="center_vertical"
+            android:text="Danny"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/statusPic"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent=""
+            android:layout_marginLeft="6dip"
+            android:contentDescription="TODO"
+            android:src="@mipmap/beer_mug"
+            android:layout_marginStart="46dp"
+            android:layout_alignTop="@+id/firstLine"
+            android:layout_alignStart="@+id/firstLine"
+            android:layout_above="@+id/secondLine" />
+
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:padding="6dip" >
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="6dip"
+            android:contentDescription="TODO"
+            android:src="@mipmap/face" />
+
+        <TextView
+            android:id="@+id/secondLine"
+            android:layout_width="fill_parent"
+            android:layout_height="26dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/icon"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="Sober :("
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/firstLine"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/secondLine"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toRightOf="@id/icon"
+            android:gravity="center_vertical"
+            android:text="Danny"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/statusPic"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent=""
+            android:layout_marginLeft="6dip"
+            android:contentDescription="TODO"
+            android:src="@mipmap/face"
+            android:layout_marginStart="46dp"
+            android:layout_alignTop="@+id/firstLine"
+            android:layout_alignStart="@+id/firstLine"
+            android:layout_above="@+id/secondLine" />
+
+    </RelativeLayout>
+
+</LinearLayout>
