@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +22,7 @@ public class FeedActivity extends Activity
 {
     private List<FeedItem> feed = new ArrayList<FeedItem>();
 
+    private EditText mStatusView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,22 @@ public class FeedActivity extends Activity
 
         addToFeed();
         populateFeed();
+
+        /* "Post" button OnClickListener */
+        Button mPostStatusButton = (Button) findViewById(R.id.post_status_button);
+        mPostStatusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptPost();
+            }
+        });
     }
+
+    private void attemptPost()
+    {
+        String status = mStatusView.getText().toString();
+    }
+
 
 
     /* Generic method for adding FeedItem to feed */
