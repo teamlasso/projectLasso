@@ -29,7 +29,7 @@ public class ContactsActivity extends Activity {
         addToEmergency();
         populateMembersList();
         populateEmergencyList();
-        //Testing 
+        //Testing
 
 
 

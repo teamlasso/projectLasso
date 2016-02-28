@@ -19,73 +19,33 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
+            android:inputType="text|textAutoCorrect|textCapSentences"
             android:ems="10"
             android:layout_gravity="center_horizontal"
             android:layout_alignBottom="@+id/post_status_button" />
 
         <Button
             android:id="@+id/post_status_button"
+            android:text="Post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Post"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentTop="true"
-            android:layout_alignEnd="@+id/editText" />
+            android:layout_alignEnd="@+id/editText"
+            android:onClick="onClick" />
 
     </RelativeLayout>
+
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:padding="6dip" >
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="6dip"
-            android:contentDescription="TODO"
-            android:src="@mipmap/face" />
-
-        <TextView
-            android:id="@+id/secondLine"
-            android:layout_width="fill_parent"
-            android:layout_height="26dip"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/icon"
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:text="Help!"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/firstLine"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/secondLine"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignWithParentIfMissing="true"
-            android:layout_toRightOf="@id/icon"
-            android:gravity="center_vertical"
-            android:text="Danny"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/statusPic"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="6dip"
-            android:contentDescription="TODO"
-            android:src="@mipmap/help"
-            android:layout_marginStart="46dp"
-            android:layout_alignTop="@+id/firstLine"
-            android:layout_alignStart="@+id/firstLine"
-            android:layout_above="@+id/secondLine" />
+        <ListView
+            android:id="@+id/feedListView"
+            android:layout_width="match_parent"
+            android:layout_height="507dp" />
 
     </RelativeLayout>
 

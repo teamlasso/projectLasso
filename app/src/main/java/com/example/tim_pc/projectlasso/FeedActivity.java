@@ -2,6 +2,7 @@ package com.example.tim_pc.projectlasso;
 
 import android.app.Activity;
 import android.os.Bundle;
+
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,99 +16,127 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.ArrayList;
 
+
 /**
  * Created by danielbdeutsch on 2/21/16.
  */
 public class FeedActivity extends Activity
 {
-    private List<FeedItem> feed = new ArrayList<FeedItem>();
+    private List<FeedItem> feed = new ArrayList<FeedItem>();    //feed list
+    private EditText mStatusView;   //status textbox
 
-    private EditText mStatusView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-        addToFeed();
-        populateFeed();
+        /* Populate feed with filler data */
+        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
+        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
+        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
+        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
+        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
+        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
+
+        /* Set up ListAdapter */
+        final ArrayAdapter<FeedItem> adapter = new MyListAdapter(feed);
+        final ListView feedListView = (ListView) findViewById(R.id.feedListView);
+        feedListView.setAdapter(adapter);
 
         /* "Post" button OnClickListener */
         Button mPostStatusButton = (Button) findViewById(R.id.post_status_button);
         mPostStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                attemptPost();
+            public void onClick(View view)
+            {
+                String status = mStatusView.getText().toString();   //get status String from textbox
+                addToFeed(R.mipmap.face1, R.mipmap.drunk_emoji, "Tim", status);
+
+                adapter.notifyDataSetChanged();
+
+                /* Scroll to bottom of list */
+                feedListView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        feedListView.setSelection(feedListView.getCount()-1);
+                    }
+                } );
             }
-        });
-    }
+        } );
 
-    private void attemptPost()
-    {
-        String status = mStatusView.getText().toString();
     }
-
 
 
     /* Generic method for adding FeedItem to feed */
-    private void addToFeed(int profPicId, int statusPicId, String name, String status) {
+    private void addToFeed(int profPicId, int statusPicId, String name, String status)
+    {
         feed.add(new FeedItem(profPicId, statusPicId, name, status));
     }
 
-    /* Method for adding bulk to members list */
-    private void addToFeed(){
-        feed.add(new FeedItem(R.mipmap.face, R.mipmap.face1, "Danny Deutsch", "Inebriated"));
-        feed.add(new FeedItem(R.mipmap.face, R.mipmap.face1, "Tim Yim", "Hammered"));
-    }
 
-    /* Populates feed on the app itself */
-    private void populateFeed(){
-        ArrayAdapter<FeedItem> adapter = new MyListAdapter(feed);
-        ListView feed = (ListView) findViewById(R.id.emergencyList);
-        feed.setAdapter(adapter);
-    }
-
-    //Creates a dynamic adapter to handle both members and emergency contacts.
-    //Parameter: The parameter is the list of users.
-    private class MyListAdapter extends ArrayAdapter<FeedItem>
-    {
+    //TODO: Creates a dynamic adapter to handle both members and emergency contacts.
+    //Parameter: The parameter is the list of FeedItems.
+    private class MyListAdapter extends ArrayAdapter<FeedItem> {
         //Create copy of the list since there are two lists.
         List<FeedItem> localList;
 
-        //Set to dynamic. Users could be member or emergency.
-        public MyListAdapter(List<FeedItem> feed){
-            //Use the List that is passed in from the parameter.
-            super(FeedActivity.this, R.layout.activity_feed, feed);
+        //TODO: Set to dynamic. Users could be member or emergency.
+        public MyListAdapter(List<FeedItem> feed)
+        {
+            super(FeedActivity.this, R.layout.FeedItem_view, feed);
             localList = feed;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent)
+        public int getViewTypeCount()
         {
+            return 2;
+        }
+
+        @Override
+        public int getItemViewType(int position)
+        {
+            return getItem(position).getItemViewType();
+        }
+
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent){
             //Get view even is view is null.
             View itemView = convertView;
-            if (itemView == null) {
-                itemView = getLayoutInflater().inflate(R.layout.activity_feed, parent, false);
+            int rowType = getItemViewType(position);
+
+
+
+            if (convertView == null) {
+                itemView = getLayoutInflater().inflate(R.layout.FeedItem_view, parent, false);
+            }
+            else { //Make sure itemView is not null.
+                itemView = convertView;
             }
 
-            //Iterate through the list of FeedItem's
-            FeedItem currentMember = localList.get(position);
 
-            /* Sets profile pic in FeedItem */
-            ImageView profPic = (ImageView)itemView.findViewById(R.id.item_icon);
-            profPic.setImageResource(currentMember.getProfPicId());
+            if (rowType == 0){
+                //Iterate through the list of FeedItems
+                FeedItem currentFeedItem = localList.get(position);
 
-            /* Sets status pic in FeedItem */
-            ImageView statusPic = (ImageView)itemView.findViewById(R.id.item_icon);
-            statusPic.setImageResource(currentMember.getStatusPicId());
+                //Setting the image of the User
+                ImageView imageView = (ImageView)itemView.findViewById(R.id.item_icon);
+                imageView.setImageResource(currentMember.getImageID());
 
-            /* Sets name in FeedItem */
-            TextView name = (TextView) itemView.findViewById(R.id.item_txtName);
-            name.setText(currentMember.getName());
-
-            /* Sets status in FeedItem */
-            TextView status = (TextView) itemView.findViewById(R.id.item_txtName);
-            status.setText(currentMember.getName());
+                //Setting the name of the User
+                TextView nameText = (TextView) itemView.findViewById(R.id.item_txtName);
+                nameText.setText(currentMember.getName());
+            }
+            else {
+                //Iterate through the list of Users.
+                User currentHeader = localList.get(position);
+                //Grab text and add.
+                TextView headerText = (TextView) itemView.findViewById(R.id.separator);
+                headerText.setText(currentHeader.getName());
+            }
 
             return itemView;
         }
