@@ -12,8 +12,8 @@
     android:weightSum="1">
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="507dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/membersList"
         tools:listitem="@android:layout/simple_list_item_1" />
 

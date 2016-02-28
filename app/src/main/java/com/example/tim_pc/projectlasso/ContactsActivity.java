@@ -1,26 +1,25 @@
 package com.example.tim_pc.projectlasso;
 
 import android.app.Activity;
-import android.support.design.widget.*;
-import android.app.ListActivity;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.Parcelable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.content.Context;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsActivity extends Activity {
     private List<User> members = new ArrayList<User>();
     private List<User> emergencyContact = new ArrayList<User>();
+    //public static ParseUser
 
 
     @Override
@@ -47,6 +46,21 @@ public class ContactsActivity extends Activity {
         final ArrayAdapter<User> adapter = new MyListAdapter(members);
         final ListView membersList = (ListView) findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
+        membersList.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+//                String item = members.get(position).toString();
+//
+//                Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                Intent test = new Intent(ContactsActivity.this, TestLoginActivity.class);
+                test.putExtra("user", members.get(position));
+                startActivity(test);
+
+
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

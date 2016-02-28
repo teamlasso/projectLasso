@@ -1,10 +1,12 @@
 
 package com.example.tim_pc.projectlasso;
 
+import java.io.Serializable;
+
 /**
  * Created by TIM-PC on 2/14/2016.
  */
-public class User {
+public class User implements Serializable{
     private String name;
     private int imageID;
     private int itemViewType;
@@ -34,5 +36,10 @@ public class User {
 
     public int getItemViewType(){
         return itemViewType;
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 }
