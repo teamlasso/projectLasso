@@ -29,20 +29,20 @@ public class ContactsActivity extends Activity {
 
 
         members.add(new User("Members"));
-        members.add(new User("Tim Yim", R.mipmap.face));
-        members.add(new User("1", R.mipmap.face));
-        members.add(new User("2", R.mipmap.face));
-        members.add(new User("3", R.mipmap.face));
-        members.add(new User("4", R.mipmap.face));
-        members.add(new User("5", R.mipmap.face));
-        members.add(new User("6", R.mipmap.face));
-        members.add(new User("7", R.mipmap.face));
-        members.add(new User("8", R.mipmap.face));
-        members.add(new User("9", R.mipmap.face));
-        members.add(new User("10", R.mipmap.face));
+        members.add(new User("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("1", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("2", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("3", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("4", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("5", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("6", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("7", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("8", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("9", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("10", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
         members.add(new User("Emergency Contacts"));
-        members.add(new User("Jim Bob", R.mipmap.face1));
-        members.add(new User("John Doe", R.mipmap.face));
+        members.add(new User("Jim Bob", R.mipmap.face1, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("John Doe", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
         final ArrayAdapter<User> adapter = new MyListAdapter(members);
         final ListView membersList = (ListView) findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
@@ -54,7 +54,7 @@ public class ContactsActivity extends Activity {
 //                String item = members.get(position).toString();
 //
 //                Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
-                Intent test = new Intent(ContactsActivity.this, TestLoginActivity.class);
+                Intent test = new Intent(ContactsActivity.this, UserProfileActivity.class);
                 test.putExtra("user", members.get(position));
                 startActivity(test);
 
@@ -66,7 +66,7 @@ public class ContactsActivity extends Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                members.add(new User("A B", R.mipmap.face1));
+                members.add(new User("A B", R.mipmap.face1, "airyimbin@gmail.com", "1234567890"));
                 adapter.notifyDataSetChanged();
                 membersList.post(new Runnable() {
                     @Override
@@ -86,26 +86,26 @@ public class ContactsActivity extends Activity {
     }
 
     //Generic method for adding one user to list.
-    private void addToMembers(String name, int imageID){
-        members.add(new User(name, imageID));
+    private void addToMembers(String name, int imageID, String email, String phoneNumber){
+        members.add(new User(name, imageID, email, phoneNumber));
     }
 
     //Method for adding bulk to members list
     private void addToMembers(){
         members.add(new User("Members"));
-        members.add(new User("Tim Yim", R.mipmap.face));
+        members.add(new User("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
     }
 
     //Generic method for adding one user to the list.
-    private void addToEmergency(String name, int imageID){
-        emergencyContact.add(new User(name, imageID));
+    private void addToEmergency(String name, int imageID, String email, String phoneNumber){
+        emergencyContact.add(new User(name, imageID, email, phoneNumber));
     }
 
     //Method for add to the emergency list.
     private void addToEmergency(){
         emergencyContact.add(new User("Emergency Contacts"));
-        emergencyContact.add(new User("Jim Bob", R.mipmap.face1));
-        emergencyContact.add(new User("John Doe", R.mipmap.face));
+        emergencyContact.add(new User("Jim Bob", R.mipmap.face1, "airyimbin@gmail.com", "1234567890"));
+        emergencyContact.add(new User("John Doe", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
     }
 
     //Populates the Emergency List on the app itself.

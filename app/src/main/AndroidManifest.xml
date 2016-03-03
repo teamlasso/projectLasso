@@ -31,7 +31,8 @@
         </activity>
         <activity
             android:name=".TestLoginActivity"
-            android:label="@string/title_activity_test_login"></activity>
+            android:label="@string/title_activity_test_login" />
+        <activity android:name=".UserProfileActivity"></activity>
     </application>
 
 </manifest>
