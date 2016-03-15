@@ -1,4 +1,4 @@
-package com.example.tim_pc.projectlasso;
+package am.tabfragment;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

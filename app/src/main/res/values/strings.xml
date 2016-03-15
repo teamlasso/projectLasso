@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Project Lasso</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name">TabFragment</string>
+    <string name="title_activity_tab1">Tab1</string>
 </resources>

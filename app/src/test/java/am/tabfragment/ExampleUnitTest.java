@@ -1,4 +1,4 @@
-package com.example.tim_pc.projectlasso;
+package am.tabfragment;
 
 import org.junit.Test;
 
