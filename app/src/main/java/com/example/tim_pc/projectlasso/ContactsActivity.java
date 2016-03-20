@@ -66,14 +66,16 @@ public class ContactsActivity extends Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                members.add(new User("A B", R.mipmap.face1, "airyimbin@gmail.com", "1234567890"));
-                adapter.notifyDataSetChanged();
-                membersList.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        membersList.setSelection(membersList.getCount()-1);
-                    }
-                });
+//                members.add(new User("A B", R.mipmap.face1, "airyimbin@gmail.com", "1234567890"));
+//                adapter.notifyDataSetChanged();
+//                membersList.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        membersList.setSelection(membersList.getCount()-1);
+//                    }
+//                });
+                Intent addUser = new Intent(ContactsActivity.this, AddSearchUsers.class);
+                startActivity(addUser);
             }
         });
 
