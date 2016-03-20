@@ -70,8 +70,7 @@ import android.view.View;
 import android.os.Bundle;
 
 //public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-public class MapsActivity extends AppCompatActivity
-        implements
+public class MapsActivity extends FragmentActivity implements
         OnMyLocationButtonClickListener,
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback {
@@ -84,8 +83,8 @@ public class MapsActivity extends AppCompatActivity
     private UiSettings mUiSettings;
 
     //entry point to google play services -- currently not used
-    protected GoogleApiClient mGoogleApiClient;
-    private GoogleApiClient client;
+    //protected GoogleApiClient mGoogleApiClient;
+    //private GoogleApiClient client;
     //----------------------------------------------------------------------------------------------
     //All from MyLocationDemoActivity.java
 
@@ -123,7 +122,7 @@ public class MapsActivity extends AppCompatActivity
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
 
     }
@@ -206,8 +205,8 @@ public class MapsActivity extends AppCompatActivity
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing.
-            PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+            //PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
+              //      Manifest.permission.ACCESS_FINE_LOCATION, true);
         } else if (mMap != null) {
             // Access to the location has been granted to the app.
             mMap.setMyLocationEnabled(true);
@@ -287,12 +286,12 @@ public class MapsActivity extends AppCompatActivity
         //------------------------------------------------------------------------------------------
         // Added to turn on play services
         //------------------------------------------------------------------------------------------
-        mGoogleApiClient.connect();
+       // mGoogleApiClient.connect();
         //------------------------------------------------------------------------------------------
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
+        //client.connect();
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
                 "Maps Page", // TODO: Define a title for the content shown.
@@ -303,7 +302,7 @@ public class MapsActivity extends AppCompatActivity
                 // TODO: Make sure this auto-generated app deep link URI is correct.
                 Uri.parse("android-app://com.example.tim_pc.projectlasso/http/host/path")
         );
-        AppIndex.AppIndexApi.start(client, viewAction);
+        //AppIndex.AppIndexApi.start(client, viewAction);
 
         //------------------------------------------------------------------------------------------
         // Added to turn on play services
@@ -315,7 +314,7 @@ public class MapsActivity extends AppCompatActivity
         //------------------------------------------------------------------------------------------
         // Added to turn off play services
         //------------------------------------------------------------------------------------------
-        mGoogleApiClient.disconnect();
+        //mGoogleApiClient.disconnect();
         //------------------------------------------------------------------------------------------
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -330,8 +329,8 @@ public class MapsActivity extends AppCompatActivity
                 // TODO: Make sure this auto-generated app deep link URI is correct.
                 Uri.parse("android-app://com.example.tim_pc.projectlasso/http/host/path")
         );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
+        //AppIndex.AppIndexApi.end(client, viewAction);
+        //client.disconnect();
 
 
     }
