@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class FeedActivity extends Activity
 {
     private List<FeedItem> feed = new ArrayList<FeedItem>();    //feed list
-    private EditText mStatusView;   //status textbox
+    EditText mStatusView;   //status textbox
 
 
     @Override
@@ -33,12 +34,8 @@ public class FeedActivity extends Activity
         setContentView(R.layout.activity_feed);
 
         /* Populate feed with filler data */
-        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
-        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
-        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
-        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
-        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
-        addToFeed(R.mipmap.face, R.mipmap.beer_mug, "Danny", "Having fun");
+        addToFeed(R.mipmap.face, R.mipmap.drunk_emoji, "Amanda", "Fun times");
+        addToFeed(R.mipmap.face, R.mipmap.drunk_emoji, "Tim", "Schwasted");
 
         /* Set up ListAdapter */
         final ArrayAdapter<FeedItem> adapter = new MyListAdapter(feed);
@@ -47,12 +44,16 @@ public class FeedActivity extends Activity
 
         /* "Post" button OnClickListener */
         Button mPostStatusButton = (Button) findViewById(R.id.post_status_button);
-        mPostStatusButton.setOnClickListener(new View.OnClickListener() {
+
+        mPostStatusButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view)
             {
+                mStatusView = (EditText) findViewById(R.id.editText);
                 String status = mStatusView.getText().toString();   //get status String from textbox
-                addToFeed(R.mipmap.face1, R.mipmap.drunk_emoji, "Tim", status);
+
+                addToFeed(R.mipmap.face, R.mipmap.drunk_emoji, "Amanda", status);
 
                 adapter.notifyDataSetChanged();
 
@@ -72,71 +73,71 @@ public class FeedActivity extends Activity
     /* Generic method for adding FeedItem to feed */
     private void addToFeed(int profPicId, int statusPicId, String name, String status)
     {
-        feed.add(new FeedItem(profPicId, statusPicId, name, status));
+        feed.add(new FeedItem(profPicId, statusPicId, name, status, this.getTimestamp()));
     }
 
 
-    //TODO: Creates a dynamic adapter to handle both members and emergency contacts.
-    //Parameter: The parameter is the list of FeedItems.
-    private class MyListAdapter extends ArrayAdapter<FeedItem> {
+
+    private String getTimestamp()
+    {
+        int time = (int) (System.currentTimeMillis());
+        Timestamp tsTemp = new Timestamp(time);
+
+        return tsTemp.toString();
+    }
+
+
+
+    private class MyListAdapter extends ArrayAdapter<FeedItem>
+    {
         //Create copy of the list since there are two lists.
         List<FeedItem> localList;
 
-        //TODO: Set to dynamic. Users could be member or emergency.
+        //Set to dynamic. Users could be member or emergency.
         public MyListAdapter(List<FeedItem> feed)
         {
-            super(FeedActivity.this, R.layout.FeedItem_view, feed);
+            //Use the List that is passed in from the parameter.
+            super(FeedActivity.this, R.layout.feeditem_view, feed);
             localList = feed;
         }
 
+
         @Override
-        public int getViewTypeCount()
+        public View getView(int position, View convertView, ViewGroup parent)
         {
-            return 2;
-        }
-
-        @Override
-        public int getItemViewType(int position)
-        {
-            return getItem(position).getItemViewType();
-        }
-
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent){
-            //Get view even is view is null.
             View itemView = convertView;
-            int rowType = getItemViewType(position);
-
-
 
             if (convertView == null) {
-                itemView = getLayoutInflater().inflate(R.layout.FeedItem_view, parent, false);
-            }
-            else { //Make sure itemView is not null.
+                itemView = getLayoutInflater().inflate(R.layout.feeditem_view, parent, false);
+            } else {
                 itemView = convertView;
             }
 
 
-            if (rowType == 0){
-                //Iterate through the list of FeedItems
-                FeedItem currentFeedItem = localList.get(position);
+            //Iterate through the list of Users(member or emergency).
+            FeedItem currentFeedItem = localList.get(position);
 
-                //Setting the image of the User
-                ImageView imageView = (ImageView)itemView.findViewById(R.id.item_icon);
-                imageView.setImageResource(currentMember.getImageID());
 
-                //Setting the name of the User
-                TextView nameText = (TextView) itemView.findViewById(R.id.item_txtName);
-                nameText.setText(currentMember.getName());
-            }
-            else {
-                //Iterate through the list of Users.
-                User currentHeader = localList.get(position);
-                //Grab text and add.
-                TextView headerText = (TextView) itemView.findViewById(R.id.separator);
-                headerText.setText(currentHeader.getName());
-            }
+            // Set profPic of FeedItem
+            ImageView profImageView = (ImageView) itemView.findViewById(R.id.profPic);
+            profImageView.setImageResource(currentFeedItem.getProfPicId());
+
+            // Set statusPic of FeedItem
+            ImageView statusImageView = (ImageView) itemView.findViewById(R.id.statusPic);
+            statusImageView.setImageResource(currentFeedItem.getStatusPicId());
+
+            // Set name of FeedItem
+            TextView nameTextView = (TextView) itemView.findViewById(R.id.name);
+            nameTextView.setText(currentFeedItem.getName());
+
+            // Set status of FeedItem
+            TextView statusTextView = (TextView) itemView.findViewById(R.id.status);
+            statusTextView.setText(currentFeedItem.getStatus());
+
+            // Set timestamp of FeedItem
+            TextView timestampTextView = (TextView) itemView.findViewById(R.id.timestamp);
+            timestampTextView.setText(currentFeedItem.getTimestamp());
+
 
             return itemView;
         }

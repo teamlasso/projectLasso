@@ -1,36 +1,35 @@
 package com.example.tim_pc.projectlasso;
 
-/**
- * Created by danielbdeutsch on 2/21/16.
- */
+import java.sql.Timestamp;
+
 public class FeedItem
 {
     private int profPicId;
     private int statusPicId;
     private String name;
     private String status;
+    private String timestamp;
 
-    public FeedItem(int ProfPicId, int statusPicId, String name, String status) {
+    /***************
+       CONSTRUCTOR
+     ***************/
+    public FeedItem(int ProfPicId, int statusPicId, String name, String status, String timestamp)
+    {
         super();
         this.profPicId = profPicId;
         this.statusPicId = statusPicId;
         this.name = name;
         this.status = status;
+        this.timestamp = timestamp;
     }
 
-    public int getProfPicId() {
-        return profPicId;
-    }
 
-    public int getStatusPicId() {
-        return statusPicId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getStatus() {
-        return status;
-    }
+    /************
+       GETTERS
+     ************/
+    public int getProfPicId()    { return profPicId; }
+    public int getStatusPicId()  { return statusPicId; }
+    public String getName()      { return name; }
+    public String getStatus()    { return status; }
+    public String getTimestamp() { return timestamp; }
 }
