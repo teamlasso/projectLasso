@@ -4,13 +4,11 @@ package com.example.tim_pc.projectlasso;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 /**
  * Created by TIM-PC on 2/14/2016.
  */
 
-public class User implements Parcelable{
+public class TYUser implements Parcelable{
     private String name;
     private String email;
     private String phoneNumber;
@@ -20,7 +18,7 @@ public class User implements Parcelable{
 
     //fg
 
-    public User(String name, int imageID, String email, String phoneNumber){
+    public TYUser(String name, int imageID, String email, String phoneNumber){
         super();
         this.name = name;
         this.imageID = imageID;
@@ -29,7 +27,7 @@ public class User implements Parcelable{
         this.phoneNumber = phoneNumber;
     }
 
-    public User(String name){
+    public TYUser(String name){
         super();
         this.name = name;
         this.itemViewType = 1;
@@ -60,7 +58,7 @@ public class User implements Parcelable{
         return name;
     }
 
-    public User(Parcel in){
+    public TYUser(Parcel in){
         String[] data= new String[5];
 
         in.readStringArray(data);
@@ -83,18 +81,18 @@ public class User implements Parcelable{
         dest.writeStringArray(new String[]{this.name,String.valueOf(this.imageID),String.valueOf(this.itemViewType),this.email,this.phoneNumber});
     }
 
-    public static final Parcelable.Creator<User> CREATOR= new Parcelable.Creator<User>() {
+    public static final Parcelable.Creator<TYUser> CREATOR= new Parcelable.Creator<TYUser>() {
 
         @Override
-        public User createFromParcel(Parcel source) {
+        public TYUser createFromParcel(Parcel source) {
 // TODO Auto-generated method stub
-            return new User(source);  //using parcelable constructor
+            return new TYUser(source);  //using parcelable constructor
         }
 
         @Override
-        public User[] newArray(int size) {
+        public TYUser[] newArray(int size) {
 // TODO Auto-generated method stub
-            return new User[size];
+            return new TYUser[size];
         }
     };
 

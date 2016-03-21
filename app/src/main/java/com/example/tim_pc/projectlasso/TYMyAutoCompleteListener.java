@@ -3,19 +3,18 @@ package com.example.tim_pc.projectlasso;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 
 /**
  * Created by tim on 3/20/16.
  */
-public class MyAutoCompleteListener implements TextWatcher {
+public class TYMyAutoCompleteListener implements TextWatcher {
 
 
     public static final String TAG = "CustomAutoCompleteTextChangedListener.java";
     Context context;
 
-    public MyAutoCompleteListener(Context context){
+    public TYMyAutoCompleteListener(Context context){
         this.context = context;
     }
 
@@ -36,7 +35,7 @@ public class MyAutoCompleteListener implements TextWatcher {
     public void onTextChanged(CharSequence userInput, int start, int before, int count) {
 
 
-        AddSearchUsers mainActivity = ((AddSearchUsers) context);
+        TYAddSearchUsers mainActivity = ((TYAddSearchUsers) context);
         mainActivity.item = mainActivity.getItemsFromDb(userInput.toString());
         mainActivity.adapter.notifyDataSetChanged();
         mainActivity.adapter = new ArrayAdapter<String>(mainActivity, android.R.layout.simple_dropdown_item_1line, mainActivity.item);

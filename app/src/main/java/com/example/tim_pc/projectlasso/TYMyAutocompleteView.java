@@ -7,18 +7,18 @@ import android.widget.AutoCompleteTextView;
 /**
  * Created by tim on 3/20/16.
  */
-public class MyAutocompleteView extends AutoCompleteTextView{
-    public MyAutocompleteView(Context context) {
+public class TYMyAutocompleteView extends AutoCompleteTextView{
+    public TYMyAutocompleteView(Context context) {
         super(context);
         // TODO Auto-generated constructor stub
     }
 
-    public MyAutocompleteView(Context context, AttributeSet attrs) {
+    public TYMyAutocompleteView(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO Auto-generated constructor stub
     }
 
-    public MyAutocompleteView(Context context, AttributeSet attrs, int defStyle) {
+    public TYMyAutocompleteView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         // TODO Auto-generated constructor stub
     }

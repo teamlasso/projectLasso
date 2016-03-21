@@ -15,12 +15,12 @@ import android.util.Log;
 /**
  * Created by tim on 3/20/16.
  */
-public class DBHandler extends SQLiteOpenHelper{
+public class TYDBHandler extends SQLiteOpenHelper{
 
 
     public static final String TAG = "DBHandler.java";
     private static final int DATABASE_VERSION = 1;
-    protected static final String DATABASE_NAME = "UserDatabase";
+    protected static final String DATABASE_NAME = "User2Database";
     public String tableName = "USERS";
     public String fieldId = "ID";
     public String fieldImageId = "IMAGEID";
@@ -28,7 +28,7 @@ public class DBHandler extends SQLiteOpenHelper{
     public String fieldEmail = "EMAIL";
     public String fieldPhoneNumber = "PHONENUMBER";
 
-    public DBHandler(Context context) {
+    public TYDBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -54,7 +54,7 @@ public class DBHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean create(User user){
+    public boolean create(TYUser user){
 
         boolean success = false;
 
@@ -98,9 +98,9 @@ public class DBHandler extends SQLiteOpenHelper{
         return exists;
     }
 
-    public List<User> read(String searchTerm) {
+    public List<TYUser> read(String searchTerm) {
 
-        List<User> recordsList = new ArrayList<User>();
+        List<TYUser> recordsList = new ArrayList<TYUser>();
 
         String sql = "";
         sql += "SELECT * FROM " + tableName;
@@ -120,7 +120,7 @@ public class DBHandler extends SQLiteOpenHelper{
                 int imageID = cursor.getInt(cursor.getColumnIndex(fieldImageId));
                 String email = cursor.getString(cursor.getColumnIndex(fieldEmail));
                 String phoneNumber = cursor.getString(cursor.getColumnIndex(fieldPhoneNumber));
-                User user = new User(name, imageID, email, phoneNumber);
+                TYUser user = new TYUser(name, imageID, email, phoneNumber);
                 recordsList.add(user);
 
             } while (cursor.moveToNext());

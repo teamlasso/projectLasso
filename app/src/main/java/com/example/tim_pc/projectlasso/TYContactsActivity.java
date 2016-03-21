@@ -3,7 +3,6 @@ package com.example.tim_pc.projectlasso;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactsActivity extends Activity {
-    public List<User> members = new ArrayList<User>();
-    private List<User> emergencyContact = new ArrayList<User>();
-    ArrayAdapter<User> adapter;
+public class TYContactsActivity extends Activity {
+    public List<TYUser> members = new ArrayList<TYUser>();
+    private List<TYUser> emergencyContact = new ArrayList<TYUser>();
+    ArrayAdapter<TYUser> adapter;
     //public static ParseUser
 
 
@@ -29,18 +28,18 @@ public class ContactsActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 
-        members.add(new User("Members"));
-        members.add(new User("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("Portia Randol", R.mipmap.face, "portiarandol@gmail.com", "1234567890"));
-        members.add(new User("Kenton Shumway", R.mipmap.face, "kentonshumway@gmail.com", "1234567890"));
-        members.add(new User("Elwood Yanni", R.mipmap.face, "elwoodyanni@gmail.com", "1234567890"));
-        members.add(new User("Dell Ambriz", R.mipmap.face, "dellambriz@gmail.com", "1234567890"));
-        members.add(new User("Alda James", R.mipmap.face, "aldajames@gmail.com", "1234567890"));
-        members.add(new User("Lucius Bradway", R.mipmap.face, "luciusbradway@gmail.com", "1234567890"));
-        members.add(new User("Esther Parman", R.mipmap.face, "estherparman@gmail.com", "1234567890"));
-        members.add(new User("Emergency Contacts"));
-        members.add(new User("Jim Bob", R.mipmap.face1, "jimbob@gmail.com", "1234567890"));
-        members.add(new User("John Doe", R.mipmap.face, "johndoe@gmail.com", "1234567890"));
+        members.add(new TYUser("Members"));
+        members.add(new TYUser("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new TYUser("Portia Randol", R.mipmap.face, "portiarandol@gmail.com", "1234567890"));
+        members.add(new TYUser("Kenton Shumway", R.mipmap.face, "kentonshumway@gmail.com", "1234567890"));
+        members.add(new TYUser("Elwood Yanni", R.mipmap.face, "elwoodyanni@gmail.com", "1234567890"));
+        members.add(new TYUser("Dell Ambriz", R.mipmap.face, "dellambriz@gmail.com", "1234567890"));
+        members.add(new TYUser("Alda James", R.mipmap.face, "aldajames@gmail.com", "1234567890"));
+        members.add(new TYUser("Lucius Bradway", R.mipmap.face, "luciusbradway@gmail.com", "1234567890"));
+        members.add(new TYUser("Esther Parman", R.mipmap.face, "estherparman@gmail.com", "1234567890"));
+        members.add(new TYUser("Emergency Contacts"));
+        members.add(new TYUser("Jim Bob", R.mipmap.face1, "jimbob@gmail.com", "1234567890"));
+        members.add(new TYUser("John Doe", R.mipmap.face, "johndoe@gmail.com", "1234567890"));
         adapter = new MyListAdapter(members);
         final ListView membersList = (ListView) findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
@@ -52,7 +51,7 @@ public class ContactsActivity extends Activity {
 //                String item = members.get(position).toString();
 //
 //                Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
-                Intent test = new Intent(ContactsActivity.this, UserProfileActivity.class);
+                Intent test = new Intent(TYContactsActivity.this, TYUserProfileActivity.class);
                 test.putExtra("user", members.get(position));
                 startActivity(test);
 
@@ -72,7 +71,7 @@ public class ContactsActivity extends Activity {
 //                        membersList.setSelection(membersList.getCount()-1);
 //                    }
 //                });
-                Intent addUser = new Intent(ContactsActivity.this, AddSearchUsers.class);
+                Intent addUser = new Intent(TYContactsActivity.this, TYAddSearchUsers.class);
                 startActivityForResult(addUser, 0);
             }
         });
@@ -91,7 +90,7 @@ public class ContactsActivity extends Activity {
             if (resultCode == RESULT_OK) {
                 // A contact was picked.  Here we will just display it
                 // to the user.
-                User user = data.getParcelableExtra("user");
+                TYUser user = data.getParcelableExtra("user");
                 members.add(1, user);
                 adapter.notifyDataSetChanged();
 
@@ -100,30 +99,30 @@ public class ContactsActivity extends Activity {
     }
     //Generic method for adding one user to list.
     private void addToMembers(String name, int imageID, String email, String phoneNumber){
-        members.add(new User(name, imageID, email, phoneNumber));
+        members.add(new TYUser(name, imageID, email, phoneNumber));
     }
 
     //Method for adding bulk to members list
     private void addToMembers(){
-        members.add(new User("Members"));
-        members.add(new User("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new TYUser("Members"));
+        members.add(new TYUser("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
     }
 
     //Generic method for adding one user to the list.
     private void addToEmergency(String name, int imageID, String email, String phoneNumber){
-        emergencyContact.add(new User(name, imageID, email, phoneNumber));
+        emergencyContact.add(new TYUser(name, imageID, email, phoneNumber));
     }
 
     //Method for add to the emergency list.
     private void addToEmergency(){
-        emergencyContact.add(new User("Emergency Contacts"));
-        emergencyContact.add(new User("Jim Bob", R.mipmap.face1, "airyimbin@gmail.com", "1234567890"));
-        emergencyContact.add(new User("John Doe", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        emergencyContact.add(new TYUser("Emergency Contacts"));
+        emergencyContact.add(new TYUser("Jim Bob", R.mipmap.face1, "airyimbin@gmail.com", "1234567890"));
+        emergencyContact.add(new TYUser("John Doe", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
     }
 
     //Populates the Emergency List on the app itself.
     private void populateEmergencyList(){
-        ArrayAdapter<User> adapter = new MyListAdapter(emergencyContact);
+        ArrayAdapter<TYUser> adapter = new MyListAdapter(emergencyContact);
         ListView membersList = (ListView) findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
 
@@ -132,20 +131,20 @@ public class ContactsActivity extends Activity {
     //Populates the Members List on the app itself.
     private void populateMembersList(){
         //Create a new adapter for populating the list.
-        ArrayAdapter<User> adapter = new MyListAdapter(members);
+        ArrayAdapter<TYUser> adapter = new MyListAdapter(members);
         ListView membersList = (ListView) findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
 
     }
 
-    private class MyListAdapter extends ArrayAdapter<User> {
+    private class MyListAdapter extends ArrayAdapter<TYUser> {
         //Create copy of the list since there are two lists.
-        List<User> localList;
+        List<TYUser> localList;
 
         //Set to dynamic. Users could be member or emergency.
-        public MyListAdapter(List<User> listOfUser){
+        public MyListAdapter(List<TYUser> listOfUser){
             //Use the List that is passed in from the parameter.
-            super(ContactsActivity.this, R.layout.item_view, listOfUser);
+            super(TYContactsActivity.this, R.layout.item_view, listOfUser);
             localList = listOfUser;
         }
 
@@ -184,7 +183,7 @@ public class ContactsActivity extends Activity {
 
             if(rowType == 0){
                 //Iterate through the list of Users(member or emergency).
-                User currentMember = localList.get(position);
+                TYUser currentMember = localList.get(position);
 
                 //Setting the image of the User
                 ImageView imageView = (ImageView)itemView.findViewById(R.id.item_icon);
@@ -196,7 +195,7 @@ public class ContactsActivity extends Activity {
             }
             else{
                 //Iterate through the list of Users.
-                User currentHeader = localList.get(position);
+                TYUser currentHeader = localList.get(position);
                 //Grab text and add.
                 TextView headerText = (TextView) itemView.findViewById(R.id.separator);
                 headerText.setText(currentHeader.getName());
