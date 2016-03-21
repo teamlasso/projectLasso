@@ -29,10 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".TestLoginActivity"
-            android:label="@string/title_activity_test_login" />
-        <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".AddSearchUsers"></activity>
     </application>
 
 </manifest>

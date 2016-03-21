@@ -17,8 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsActivity extends Activity {
-    private List<User> members = new ArrayList<User>();
+    public List<User> members = new ArrayList<User>();
     private List<User> emergencyContact = new ArrayList<User>();
+    ArrayAdapter<User> adapter;
     //public static ParseUser
 
 
@@ -30,20 +31,17 @@ public class ContactsActivity extends Activity {
 
         members.add(new User("Members"));
         members.add(new User("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("1", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("2", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("3", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("4", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("5", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("6", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("7", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("8", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("9", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("10", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+        members.add(new User("Portia Randol", R.mipmap.face, "portiarandol@gmail.com", "1234567890"));
+        members.add(new User("Kenton Shumway", R.mipmap.face, "kentonshumway@gmail.com", "1234567890"));
+        members.add(new User("Elwood Yanni", R.mipmap.face, "elwoodyanni@gmail.com", "1234567890"));
+        members.add(new User("Dell Ambriz", R.mipmap.face, "dellambriz@gmail.com", "1234567890"));
+        members.add(new User("Alda James", R.mipmap.face, "aldajames@gmail.com", "1234567890"));
+        members.add(new User("Lucius Bradway", R.mipmap.face, "luciusbradway@gmail.com", "1234567890"));
+        members.add(new User("Esther Parman", R.mipmap.face, "estherparman@gmail.com", "1234567890"));
         members.add(new User("Emergency Contacts"));
-        members.add(new User("Jim Bob", R.mipmap.face1, "airyimbin@gmail.com", "1234567890"));
-        members.add(new User("John Doe", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        final ArrayAdapter<User> adapter = new MyListAdapter(members);
+        members.add(new User("Jim Bob", R.mipmap.face1, "jimbob@gmail.com", "1234567890"));
+        members.add(new User("John Doe", R.mipmap.face, "johndoe@gmail.com", "1234567890"));
+        adapter = new MyListAdapter(members);
         final ListView membersList = (ListView) findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
         membersList.setOnItemClickListener(new OnItemClickListener() {
@@ -75,7 +73,7 @@ public class ContactsActivity extends Activity {
 //                    }
 //                });
                 Intent addUser = new Intent(ContactsActivity.this, AddSearchUsers.class);
-                startActivity(addUser);
+                startActivityForResult(addUser, 0);
             }
         });
 
@@ -87,6 +85,19 @@ public class ContactsActivity extends Activity {
 
     }
 
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                // A contact was picked.  Here we will just display it
+                // to the user.
+                User user = data.getParcelableExtra("user");
+                members.add(1, user);
+                adapter.notifyDataSetChanged();
+
+            }
+        }
+    }
     //Generic method for adding one user to list.
     private void addToMembers(String name, int imageID, String email, String phoneNumber){
         members.add(new User(name, imageID, email, phoneNumber));
