@@ -120,8 +120,8 @@ public class TYDBHandler extends SQLiteOpenHelper{
                 int imageID = cursor.getInt(cursor.getColumnIndex(fieldImageId));
                 String email = cursor.getString(cursor.getColumnIndex(fieldEmail));
                 String phoneNumber = cursor.getString(cursor.getColumnIndex(fieldPhoneNumber));
-                TYUser user = new TYUser(name, imageID, email, phoneNumber);
-                recordsList.add(user);
+//                TYUser user = new TYUser(name, imageID, email, phoneNumber,);
+//                recordsList.add(user);
 
             } while (cursor.moveToNext());
         }

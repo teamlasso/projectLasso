@@ -36,10 +36,11 @@ public class TYMyAutoCompleteListener implements TextWatcher {
 
 
         TYAddSearchUsers mainActivity = ((TYAddSearchUsers) context);
-        mainActivity.item = mainActivity.getItemsFromDb(userInput.toString());
+        mainActivity.getItemsFromDb(userInput.toString());
         mainActivity.adapter.notifyDataSetChanged();
-        mainActivity.adapter = new ArrayAdapter<String>(mainActivity, android.R.layout.simple_dropdown_item_1line, mainActivity.item);
+        mainActivity.adapter = new ArrayAdapter<String>(mainActivity, android.R.layout.simple_dropdown_item_1line, mainActivity.itemList);
         mainActivity.auto.setAdapter(mainActivity.adapter);
+        mainActivity.adapter.notifyDataSetChanged();
 
     }
 }

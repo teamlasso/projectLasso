@@ -19,7 +19,7 @@ public class TYUserProfileActivity extends AppCompatActivity {
 
         //Setting the name of the User
         TextView nameText = (TextView) findViewById(R.id.userName);
-        nameText.setText(user.getName());
+        nameText.setText(user.getUsername());
 
         TextView emailText = (TextView) findViewById(R.id.userEmail);
         emailText.setText(user.getEmail());

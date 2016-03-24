@@ -1,9 +1,12 @@
 package com.example.tim_pc.projectlasso;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,38 +14,62 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class TYContactsActivity extends Activity {
     public List<TYUser> members = new ArrayList<TYUser>();
     private List<TYUser> emergencyContact = new ArrayList<TYUser>();
     ArrayAdapter<TYUser> adapter;
-    //public static ParseUser
+    TYUser currentUser;
 
+    private ProgressBar bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        bar = (ProgressBar) findViewById(R.id.progressBar);
 
+        currentUser = new TYUser("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567", "airyimbin", 1);
         members.add(new TYUser("Members"));
-        members.add(new TYUser("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-        members.add(new TYUser("Portia Randol", R.mipmap.face, "portiarandol@gmail.com", "1234567890"));
-        members.add(new TYUser("Kenton Shumway", R.mipmap.face, "kentonshumway@gmail.com", "1234567890"));
-        members.add(new TYUser("Elwood Yanni", R.mipmap.face, "elwoodyanni@gmail.com", "1234567890"));
-        members.add(new TYUser("Dell Ambriz", R.mipmap.face, "dellambriz@gmail.com", "1234567890"));
-        members.add(new TYUser("Alda James", R.mipmap.face, "aldajames@gmail.com", "1234567890"));
-        members.add(new TYUser("Lucius Bradway", R.mipmap.face, "luciusbradway@gmail.com", "1234567890"));
-        members.add(new TYUser("Esther Parman", R.mipmap.face, "estherparman@gmail.com", "1234567890"));
-        members.add(new TYUser("Emergency Contacts"));
-        members.add(new TYUser("Jim Bob", R.mipmap.face1, "jimbob@gmail.com", "1234567890"));
-        members.add(new TYUser("John Doe", R.mipmap.face, "johndoe@gmail.com", "1234567890"));
+        new TYMySQLHandler().execute(currentUser.getUsername());
+
+
+
+        //members.add(currentUser);
+//
+//        members.add(new TYUser("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
+//        members.add(new TYUser("Portia Randol", R.mipmap.face, "portiarandol@gmail.com", "1234567890"));
+//        members.add(new TYUser("Kenton Shumway", R.mipmap.face, "kentonshumway@gmail.com", "1234567890"));
+//        members.add(new TYUser("Elwood Yanni", R.mipmap.face, "elwoodyanni@gmail.com", "1234567890"));
+//        members.add(new TYUser("Dell Ambriz", R.mipmap.face, "dellambriz@gmail.com", "1234567890"));
+//        members.add(new TYUser("Alda James", R.mipmap.face, "aldajames@gmail.com", "1234567890"));
+//        members.add(new TYUser("Lucius Bradway", R.mipmap.face, "luciusbradway@gmail.com", "1234567890"));
+//        members.add(new TYUser("Esther Parman", R.mipmap.face, "estherparman@gmail.com", "1234567890"));
+//        members.add(new TYUser("Emergency Contacts"));
+//        members.add(new TYUser("Jim Bob", R.mipmap.face1, "jimbob@gmail.com", "1234567890"));
+//        members.add(new TYUser("John Doe", R.mipmap.face, "johndoe@gmail.com", "1234567890"));
+
         adapter = new MyListAdapter(members);
-        final ListView membersList = (ListView) findViewById(R.id.membersList);
+        final ListView membersList= (ListView) findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         membersList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -58,7 +85,6 @@ public class TYContactsActivity extends Activity {
 
             }
         });
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,51 +117,26 @@ public class TYContactsActivity extends Activity {
                 // A contact was picked.  Here we will just display it
                 // to the user.
                 TYUser user = data.getParcelableExtra("user");
-                members.add(1, user);
+                Boolean exists = false;
+                for(TYUser listUser : members){
+                    if(listUser.getUsername() != null){
+                        if(listUser.getUsername().equals(user.getUsername())) {
+                            exists = true;
+                            break;
+                        }
+                    }
+                }
+                if(!exists) {
+                    members.add(1, user);
+                }else{
+                    Toast.makeText(getBaseContext(), "User already in group", Toast.LENGTH_LONG).show();
+                }
                 adapter.notifyDataSetChanged();
 
             }
         }
     }
-    //Generic method for adding one user to list.
-    private void addToMembers(String name, int imageID, String email, String phoneNumber){
-        members.add(new TYUser(name, imageID, email, phoneNumber));
-    }
 
-    //Method for adding bulk to members list
-    private void addToMembers(){
-        members.add(new TYUser("Members"));
-        members.add(new TYUser("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-    }
-
-    //Generic method for adding one user to the list.
-    private void addToEmergency(String name, int imageID, String email, String phoneNumber){
-        emergencyContact.add(new TYUser(name, imageID, email, phoneNumber));
-    }
-
-    //Method for add to the emergency list.
-    private void addToEmergency(){
-        emergencyContact.add(new TYUser("Emergency Contacts"));
-        emergencyContact.add(new TYUser("Jim Bob", R.mipmap.face1, "airyimbin@gmail.com", "1234567890"));
-        emergencyContact.add(new TYUser("John Doe", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-    }
-
-    //Populates the Emergency List on the app itself.
-    private void populateEmergencyList(){
-        ArrayAdapter<TYUser> adapter = new MyListAdapter(emergencyContact);
-        ListView membersList = (ListView) findViewById(R.id.membersList);
-        membersList.setAdapter(adapter);
-
-    }
-
-    //Populates the Members List on the app itself.
-    private void populateMembersList(){
-        //Create a new adapter for populating the list.
-        ArrayAdapter<TYUser> adapter = new MyListAdapter(members);
-        ListView membersList = (ListView) findViewById(R.id.membersList);
-        membersList.setAdapter(adapter);
-
-    }
 
     private class MyListAdapter extends ArrayAdapter<TYUser> {
         //Create copy of the list since there are two lists.
@@ -203,6 +204,82 @@ public class TYContactsActivity extends Activity {
 
             return itemView;
         }
+    }
+
+    class TYMySQLHandler extends AsyncTask<String, String , String>{
+
+        //private List<TYUser> membersList;
+        String resultString = "";
+        JSONObject result = null;
+        JSONArray resultArray = null;
+
+        InputStream is = null;
+        OkHttpClient client = new OkHttpClient();
+
+        public TYMySQLHandler(){
+
+        }
+        String run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }
+        @Override
+        protected void onPreExecute(){
+            bar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            try {
+                resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/grabGroupMembers.php?username="+params[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                System.out.println(resultString);
+                result = new JSONObject(resultString);
+
+
+                resultArray = result.getJSONArray("users");
+                if(result.getInt("success") == 1) {
+                    for (int i = 0; i < resultArray.length(); i++) {
+                        JSONObject temp = resultArray.getJSONObject(i);
+                        TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
+                        members.add(1, user);
+                        //adapter.notifyDataSetChanged();
+                    }
+                }else if(result.getInt("success") == 0){
+                    members.add(currentUser);
+                    try {
+                        resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/insertUserGroupID.php?username="+params[0]);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(String string){
+            bar.setVisibility(View.GONE);
+            adapter.notifyDataSetChanged();
+        }
+
+
+
     }
 
 

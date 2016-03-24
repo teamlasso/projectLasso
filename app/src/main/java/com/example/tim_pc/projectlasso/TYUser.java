@@ -14,17 +14,22 @@ public class TYUser implements Parcelable{
     private String phoneNumber;
     private int imageID;
     private int itemViewType;
+    private String username;
+    private int groupID;
+
 
 
     //fg
 
-    public TYUser(String name, int imageID, String email, String phoneNumber){
+    public TYUser(String name, int imageID, String email, String phoneNumber, String username, int groupID){
         super();
         this.name = name;
         this.imageID = imageID;
         this.itemViewType = 0;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.username = username;
+        this.groupID = groupID;
     }
 
     public TYUser(String name){
@@ -53,13 +58,17 @@ public class TYUser implements Parcelable{
         return itemViewType;
     }
 
+    public String getUsername(){ return username; }
+
+    public int getGroupID() { return groupID; }
+
     @Override
     public String toString(){
         return name;
     }
 
     public TYUser(Parcel in){
-        String[] data= new String[5];
+        String[] data= new String[7];
 
         in.readStringArray(data);
         this.name = data[0];
@@ -67,6 +76,9 @@ public class TYUser implements Parcelable{
         this.itemViewType = Integer.parseInt(data[2]);
         this.email = data[3];
         this.phoneNumber = data[4];
+        this.username = data[5];
+        this.groupID = Integer.parseInt(data[6]);
+
     }
     @Override
     public int describeContents() {
@@ -78,7 +90,7 @@ public class TYUser implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
 // TODO Auto-generated method stub
 
-        dest.writeStringArray(new String[]{this.name,String.valueOf(this.imageID),String.valueOf(this.itemViewType),this.email,this.phoneNumber});
+        dest.writeStringArray(new String[]{this.name,String.valueOf(this.imageID),String.valueOf(this.itemViewType),this.email,this.phoneNumber,this.username,String.valueOf(this.groupID)});
     }
 
     public static final Parcelable.Creator<TYUser> CREATOR= new Parcelable.Creator<TYUser>() {
