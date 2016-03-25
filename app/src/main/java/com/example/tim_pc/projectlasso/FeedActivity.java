@@ -13,7 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -33,16 +34,16 @@ public class FeedActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-        /* Populate feed with filler data */
-        addToFeed(R.mipmap.face, R.mipmap.drunk_emoji, "Amanda", "Fun times");
-        addToFeed(R.mipmap.face, R.mipmap.drunk_emoji, "Tim", "Schwasted");
+        // Populate feed with filler data
+        // addToFeed(R.mipmap.face, R.mipmap.drunk_emoji, "Amanda", "Fun times");
+        // addToFeed(R.mipmap.face, R.mipmap.drunk_emoji, "Tim", "Schwasted");
 
-        /* Set up ListAdapter */
+        // Set up ListAdapter
         final ArrayAdapter<FeedItem> adapter = new MyListAdapter(feed);
         final ListView feedListView = (ListView) findViewById(R.id.feedListView);
         feedListView.setAdapter(adapter);
 
-        /* "Post" button OnClickListener */
+        // "Post" button OnClickListener
         Button mPostStatusButton = (Button) findViewById(R.id.post_status_button);
 
         mPostStatusButton.setOnClickListener(new View.OnClickListener()
@@ -53,15 +54,17 @@ public class FeedActivity extends Activity
                 mStatusView = (EditText) findViewById(R.id.editText);
                 String status = mStatusView.getText().toString();   //get status String from textbox
 
+                //TODO: replace with currentUser information
                 addToFeed(R.mipmap.face, R.mipmap.drunk_emoji, "Amanda", status);
 
                 adapter.notifyDataSetChanged();
 
-                /* Scroll to bottom of list */
+                // Scroll to bottom of list
                 feedListView.post(new Runnable() {
                     @Override
                     public void run() {
-                        feedListView.setSelection(feedListView.getCount()-1);
+                        feedListView.smoothScrollToPosition(0);
+                        // feedListView.setSelection(feedListView.getCount()-1);
                     }
                 } );
             }
@@ -73,17 +76,17 @@ public class FeedActivity extends Activity
     /* Generic method for adding FeedItem to feed */
     private void addToFeed(int profPicId, int statusPicId, String name, String status)
     {
-        feed.add(new FeedItem(profPicId, statusPicId, name, status, this.getTimestamp()));
+        feed.add(0, new FeedItem(profPicId, statusPicId, name, status, this.getTimestamp()));
     }
 
 
 
     private String getTimestamp()
     {
-        int time = (int) (System.currentTimeMillis());
-        Timestamp tsTemp = new Timestamp(time);
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
 
-        return tsTemp.toString();
+        return sdf.format(cal.getTime());
     }
 
 
