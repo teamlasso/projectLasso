@@ -1,4 +1,4 @@
-package com.example.tim_pc.projectlasso;
+package com.example.rachelgoodman.myapplication;
 
 import org.junit.Test;
 
