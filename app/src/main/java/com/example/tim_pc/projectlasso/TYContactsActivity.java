@@ -1,12 +1,10 @@
 package com.example.tim_pc.projectlasso;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,19 +34,20 @@ public class TYContactsActivity extends Activity {
     private List<TYUser> emergencyContact = new ArrayList<TYUser>();
     ArrayAdapter<TYUser> adapter;
     TYUser currentUser;
-
+    OkHttpClient httpclient = new OkHttpClient();
     private ProgressBar bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_contacts);
 
         bar = (ProgressBar) findViewById(R.id.progressBar);
 
         currentUser = new TYUser("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567", "airyimbin", 1);
         members.add(new TYUser("Members"));
         new TYMySQLHandler().execute(currentUser.getUsername());
+
 
 
 
@@ -109,6 +108,7 @@ public class TYContactsActivity extends Activity {
 
 
     }
+
 
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
