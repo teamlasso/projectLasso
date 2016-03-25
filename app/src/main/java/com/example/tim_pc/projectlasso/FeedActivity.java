@@ -2,17 +2,23 @@ package com.example.tim_pc.projectlasso;
 
 import android.app.Activity;
 import android.os.Bundle;
-
+import android.os.AsyncTask;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.IOException;
+import java.io.InputStream;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -24,8 +30,11 @@ import java.util.ArrayList;
  */
 public class FeedActivity extends Activity
 {
+    // Global variables
     private List<FeedItem> feed = new ArrayList<FeedItem>();    //feed list
     EditText mStatusView;   //status textbox
+    ArrayAdapter<FeedItem> adapter;
+    OkHttpClient httpclient = new OkHttpClient();
 
 
     @Override
@@ -36,12 +45,14 @@ public class FeedActivity extends Activity
 
         // Populate feed with filler data
         // addToFeed(R.mipmap.face, R.mipmap.drunk_emoji, "Amanda", "Fun times");
-        // addToFeed(R.mipmap.face, R.mipmap.drunk_emoji, "Tim", "Schwasted");
-
+        // addToFeed(R.mipmap.face, R.mipmap.drunk_emoji, "Tim", "Schwasted")
         // Set up ListAdapter
-        final ArrayAdapter<FeedItem> adapter = new MyListAdapter(feed);
+        adapter = new MyListAdapter(feed);
         final ListView feedListView = (ListView) findViewById(R.id.feedListView);
         feedListView.setAdapter(adapter);
+
+
+        new TYMySQLHandler().execute(currentUser.getUsername());
 
         // "Post" button OnClickListener
         Button mPostStatusButton = (Button) findViewById(R.id.post_status_button);
@@ -143,6 +154,80 @@ public class FeedActivity extends Activity
 
 
             return itemView;
+        }
+    }
+
+
+    class TYMySQLHandler extends AsyncTask<String, String , String>
+    {
+        //private List<TYUser> membersList;
+        String resultString = "";
+        JSONObject result = null;
+        JSONArray resultArray = null;
+
+        InputStream is = null;
+        OkHttpClient client = new OkHttpClient();
+
+        public TYMySQLHandler(){
+
+        }
+        String run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }
+        @Override
+        protected void onPreExecute(){
+            bar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            try {
+                resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/grabGroupMembers.php?username="+params[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                System.out.println(resultString);
+                result = new JSONObject(resultString);
+
+
+                resultArray = result.getJSONArray("users");
+                if(result.getInt("success") == 1) {
+                    for (int i = 0; i < resultArray.length(); i++) {
+                        JSONObject temp = resultArray.getJSONObject(i);
+                        TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
+                        members.add(1, user);
+                        //adapter.notifyDataSetChanged();
+                    }
+                }else if(result.getInt("success") == 0){
+                    members.add(currentUser);
+                    try {
+                        resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/insertUserGroupID.php?username="+params[0]);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(String string){
+            bar.setVisibility(View.GONE);
+            adapter.notifyDataSetChanged();
         }
     }
 }
