@@ -42,6 +42,8 @@
             android:label="@string/title_activity_tab1"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PagerAdapter"></activity> -->
+        <activity android:name=".TYUserProfileActivity" />
+        <activity android:name=".TYAddSearchUsers"></activity>
     </application>
 
 </manifest>
