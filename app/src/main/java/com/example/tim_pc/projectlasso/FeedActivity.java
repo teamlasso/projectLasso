@@ -189,7 +189,8 @@ public class FeedActivity extends Activity
 
 
             try {
-                resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/grabGroupMembers.php?username="+params[0]);
+                // "URL + currentUser username"
+                resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/grabStatuses.php?username="+params[0]);
             } catch (IOException e) {
                 e.printStackTrace();
             }
