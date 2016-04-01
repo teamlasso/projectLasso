@@ -37,35 +37,18 @@ public class TYContactsActivity extends Activity {
     TYUser currentUser;
     OkHttpClient httpclient = new OkHttpClient();
     private ProgressBar bar;
+    private Boolean group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
-
+        group = false;
         bar = (ProgressBar) findViewById(R.id.progressBar);
 
-        currentUser = new TYUser("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567", "airyimbin", 1);
+        currentUser = new TYUser("test", R.mipmap.face, "test", "1234567", "test", 1);
         members.add(new TYUser("Members"));
-        new TYMySQLHandler().execute(currentUser.getUsername());
-
-
-
-
-        //members.add(currentUser);
-//
-//        members.add(new TYUser("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567890"));
-//        members.add(new TYUser("Portia Randol", R.mipmap.face, "portiarandol@gmail.com", "1234567890"));
-//        members.add(new TYUser("Kenton Shumway", R.mipmap.face, "kentonshumway@gmail.com", "1234567890"));
-//        members.add(new TYUser("Elwood Yanni", R.mipmap.face, "elwoodyanni@gmail.com", "1234567890"));
-//        members.add(new TYUser("Dell Ambriz", R.mipmap.face, "dellambriz@gmail.com", "1234567890"));
-//        members.add(new TYUser("Alda James", R.mipmap.face, "aldajames@gmail.com", "1234567890"));
-//        members.add(new TYUser("Lucius Bradway", R.mipmap.face, "luciusbradway@gmail.com", "1234567890"));
-//        members.add(new TYUser("Esther Parman", R.mipmap.face, "estherparman@gmail.com", "1234567890"));
-//        members.add(new TYUser("Emergency Contacts"));
-//        members.add(new TYUser("Jim Bob", R.mipmap.face1, "jimbob@gmail.com", "1234567890"));
-//        members.add(new TYUser("John Doe", R.mipmap.face, "johndoe@gmail.com", "1234567890"));
-
+        new TYMySQLHandler().execute("test");
         adapter = new MyListAdapter(members);
         final ListView membersList= (ListView) findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
@@ -78,6 +61,7 @@ public class TYContactsActivity extends Activity {
 //                String item = members.get(position).toString();
 //
 //                Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+               // if(members.get(position).getName().equals("Members"))
                 Intent test = new Intent(TYContactsActivity.this, TYUserProfileActivity.class);
                 test.putExtra("user", members.get(position));
                 startActivity(test);
@@ -89,16 +73,14 @@ public class TYContactsActivity extends Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                members.add(new User("A B", R.mipmap.face1, "airyimbin@gmail.com", "1234567890"));
-//                adapter.notifyDataSetChanged();
-//                membersList.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        membersList.setSelection(membersList.getCount()-1);
-//                    }
-//                });
-                Intent addUser = new Intent(TYContactsActivity.this, TYAddSearchUsers.class);
-                startActivityForResult(addUser, 0);
+                if(group) {
+                    Intent addUser = new Intent(TYContactsActivity.this, TYAddSearchUsers.class);
+                    startActivityForResult(addUser, 0);
+                }else{
+                    Intent createGroup = new Intent(TYContactsActivity.this, TYAddGroup.class);
+                    createGroup.putExtra("user", currentUser);
+                    startActivityForResult(createGroup, 1);
+                }
             }
         });
 
@@ -133,6 +115,12 @@ public class TYContactsActivity extends Activity {
                     Toast.makeText(getBaseContext(), "User already in group", Toast.LENGTH_LONG).show();
                 }
                 adapter.notifyDataSetChanged();
+
+            }
+        }
+        else if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                new TYMySQLHandler().execute("test");
 
             }
         }
@@ -250,6 +238,7 @@ public class TYContactsActivity extends Activity {
 
                 resultArray = result.getJSONArray("users");
                 if(result.getInt("success") == 1) {
+                    group = true;
                     for (int i = 0; i < resultArray.length(); i++) {
                         JSONObject temp = resultArray.getJSONObject(i);
                         TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
@@ -258,11 +247,6 @@ public class TYContactsActivity extends Activity {
                     }
                 }else if(result.getInt("success") == 0){
                     members.add(currentUser);
-                    try {
-                        resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/insertUserGroupID.php?username="+params[0]);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
 
                 }
             } catch (JSONException e) {
