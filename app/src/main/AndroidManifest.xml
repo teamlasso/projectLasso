@@ -3,6 +3,10 @@
     package="am.tabfragment">
 
 
+    <permission android:name="android.permission.ACCESS_FINE_LOCATION" android:protectionLevel="dangerous"/>
+    <permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:protectionLevel="dangerous"/>
+
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -42,6 +46,8 @@
             android:label="@string/title_activity_tab1"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PagerAdapter"></activity> -->
+        <activity android:name=".TYUserProfileActivity" />
+        <activity android:name=".TYAddSearchUsers"></activity>
     </application>
 
 </manifest>

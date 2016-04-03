@@ -1,12 +1,11 @@
 package am.tabfragment;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -31,7 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Tab3 extends Fragment {
+public class TYContactsActivity extends Activity {
     public List<TYUser> members = new ArrayList<TYUser>();
     private List<TYUser> emergencyContact = new ArrayList<TYUser>();
     ArrayAdapter<TYUser> adapter;
@@ -40,16 +39,11 @@ public class Tab3 extends Fragment {
     private ProgressBar bar;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        return inflater.inflate(R.layout.activity_contacts, container, false);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_contacts);
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        View view = getView();
-
-        bar = (ProgressBar) view.findViewById(R.id.progressBar);
+        bar = (ProgressBar) findViewById(R.id.progressBar);
 
         currentUser = new TYUser("Tim Yim", R.mipmap.face, "airyimbin@gmail.com", "1234567", "airyimbin", 1);
         members.add(new TYUser("Members"));
@@ -73,7 +67,7 @@ public class Tab3 extends Fragment {
 //        members.add(new TYUser("John Doe", R.mipmap.face, "johndoe@gmail.com", "1234567890"));
 
         adapter = new MyListAdapter(members);
-        final ListView membersList= (ListView) view.findViewById(R.id.membersList);
+        final ListView membersList= (ListView) findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         membersList.setOnItemClickListener(new OnItemClickListener() {
@@ -84,14 +78,14 @@ public class Tab3 extends Fragment {
 //                String item = members.get(position).toString();
 //
 //                Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
-                Intent test = new Intent(getActivity(), TYUserProfileActivity.class);
+                Intent test = new Intent(TYContactsActivity.this, TYUserProfileActivity.class);
                 test.putExtra("user", members.get(position));
                 startActivity(test);
 
 
             }
         });
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +97,7 @@ public class Tab3 extends Fragment {
 //                        membersList.setSelection(membersList.getCount()-1);
 //                    }
 //                });
-                Intent addUser = new Intent(getActivity(), TYAddSearchUsers.class);
+                Intent addUser = new Intent(TYContactsActivity.this, TYAddSearchUsers.class);
                 startActivityForResult(addUser, 0);
             }
         });
@@ -116,12 +110,11 @@ public class Tab3 extends Fragment {
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode,
-                                 Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
         if (requestCode == 0) {
-            if (resultCode == Activity.RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 // A contact was picked.  Here we will just display it
                 // to the user.
                 TYUser user = data.getParcelableExtra("user");
@@ -137,7 +130,7 @@ public class Tab3 extends Fragment {
                 if(!exists) {
                     members.add(1, user);
                 }else{
-                    Toast.makeText(getActivity(), "User already in group", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "User already in group", Toast.LENGTH_LONG).show();
                 }
                 adapter.notifyDataSetChanged();
 
@@ -153,7 +146,7 @@ public class Tab3 extends Fragment {
         //Set to dynamic. Users could be member or emergency.
         public MyListAdapter(List<TYUser> listOfUser){
             //Use the List that is passed in from the parameter.
-            super(getActivity(), R.layout.item_view, listOfUser);
+            super(TYContactsActivity.this, R.layout.item_view, listOfUser);
             localList = listOfUser;
         }
 
@@ -180,10 +173,10 @@ public class Tab3 extends Fragment {
 
             if(convertView == null){
                 if(rowType == 0){//Dynamically change amount to inflate depending on what the item type is.
-                    itemView = getActivity().getLayoutInflater().inflate(R.layout.item_view, parent, false);
+                    itemView = getLayoutInflater().inflate(R.layout.item_view, parent, false);
                 }
                 else{
-                    itemView = getActivity().getLayoutInflater().inflate(R.layout.item_header, parent, false);
+                    itemView = getLayoutInflater().inflate(R.layout.item_header, parent, false);
                 }
             }
             else{//Make sure itemView is not null.
