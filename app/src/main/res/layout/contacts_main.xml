@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView4"
-        android:text="Group Name" />
+        android:text="No Group" />
 
     <ListView
         android:layout_width="fill_parent"

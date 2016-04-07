@@ -239,6 +239,7 @@ public class TYContactsActivity extends Activity {
                 resultArray = result.getJSONArray("users");
                 if(result.getInt("success") == 1) {
                     group = true;
+
                     for (int i = 0; i < resultArray.length(); i++) {
                         JSONObject temp = resultArray.getJSONObject(i);
                         TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));

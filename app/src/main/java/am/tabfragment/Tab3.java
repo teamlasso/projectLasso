@@ -39,6 +39,7 @@ public class Tab3 extends Fragment {
     OkHttpClient httpclient = new OkHttpClient();
     private ProgressBar bar;
     private Boolean group;
+    private TextView groupName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -51,6 +52,7 @@ public class Tab3 extends Fragment {
         View view = getView();
         group = false;
         bar = (ProgressBar) view.findViewById(R.id.progressBar);
+        groupName = (TextView) view.findViewById(R.id.textView4);
 
         currentUser = new TYUser("test4", R.mipmap.face, "test4", "1234567", "test4", 1);
         members.add(new TYUser("Members"));
@@ -253,6 +255,7 @@ public class Tab3 extends Fragment {
                 resultArray = result.getJSONArray("users");
                 if(result.getInt("success") == 1) {
                     group = true;
+
                     for (int i = 0; i < resultArray.length(); i++) {
                         JSONObject temp = resultArray.getJSONObject(i);
                         TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
@@ -274,6 +277,11 @@ public class Tab3 extends Fragment {
         @Override
         protected void onPostExecute(String string){
             bar.setVisibility(View.GONE);
+            try {
+                groupName.setText(result.getString("groupname"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             adapter.notifyDataSetChanged();
         }
 
