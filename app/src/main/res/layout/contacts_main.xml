@@ -20,6 +20,7 @@
         android:id="@+id/progressBar"
         android:layout_gravity="center_horizontal" />
 
+<<<<<<< HEAD
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,6 +28,8 @@
         android:id="@+id/textView4"
         android:text="No Group" />
 
+=======
+>>>>>>> be5a1e779156cd6f14921176fbc2f2b9f535a69f
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

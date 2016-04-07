@@ -1,2 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-8.4.0_ca3de87e009ccb1af9d454c09b4cea41153be2b4.jar" />
+    </item>
+    <item
+        jar="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_03059e8c9f1196aba4bb7e700e9db3462fa441aa.jar" />
+    </item>
+    <item
+        jar="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-location-8.4.0_516390d8c6525581471dc16f5ac79961c59a9504.jar" />
+    </item>
+    <item
+        jar="/home/will/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/okio-1.6.0_e2ab6fad20b87e895679d01161d35d1f23e1a965.jar" />
+    </item>
+    <item
+        jar="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_9503d5ae1520ca038d6e5b8f8aa56faca018d4f0.jar" />
+    </item>
+    <item
+        jar="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-8.4.0_f2ee76a4ce6d700b7c8e80cd2b390546f6ad47b9.jar" />
+    </item>
+    <item
+        jar="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.1.1_975ab58069569e2f30218f7ca3d01c3d1f3f2e59.jar" />
+    </item>
+    <item
+        jar="/home/will/android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_30eb80149a322ab2c27f8635c1e6eedd01c85569.jar" />
+    </item>
+    <item
+        jar="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/src/main/okhttp-3.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="f7873a2ebde246a45c2a8d6f3247108b4c88a879">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/okhttp-3.2.0_415fe305e8a8e0d64b373fd3919b54346b657fd5.jar" />
+    </item>
+    <item
+        jar="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_e365e36829fac7772917f1103af6ac5bbbe74d62.jar" />
+    </item>
+    <item
+        jar="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.1.1_81a85270b6ee52ec41dd66f2fc9d48fc8700b595.jar" />
+    </item>
+    <item
+        jar="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.4.0_bbc924d2994183ef52ef8f09697591717c8ebb84.jar" />
+    </item>
+    <item
+        jar="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/exploded-aar/com.github.hotchemi/permissionsdispatcher/2.0.7/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="29af0f4b1d0f855e54d965157ab303ccd0a033d0">
+        <dex dex="/home/will/Dropbox/prog/AndroidStudioProjects/projectLasso-AM/app/build/intermediates/pre-dexed/debug/com.github.hotchemi-permissionsdispatcher-2.0.7_1bd6e73d86c0b3152314ef338e1a4a374d6732c3.jar" />
+    </item>
+
+</items>
