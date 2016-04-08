@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="com.example.tim_pc.myapplication.MainActivity"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/activity_vertical_margin" >
+
+        <ListView
+            tools:listitem="@android:layout/simple_list_item_2"
+            android:id="@+id/feedListView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/post_status"/>
+
+        <LinearLayout
+            android:id="@+id/post_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:layout_alignParentBottom="true" >
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:inputType="text|textAutoCorrect|textCapSentences"
+                android:layout_weight=".80" />
+
+            <Button
+                android:id="@+id/post_status_button"
+                android:text="Post"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:onClick="onClick" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
