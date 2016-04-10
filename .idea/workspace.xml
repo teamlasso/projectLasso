@@ -32,15 +32,15 @@
       <file leaf-file-name="Tab3.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/am/tabfragment/Tab3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25">
-              <caret line="140" column="13" selection-start-line="140" selection-start-column="13" selection-end-line="140" selection-end-column="13" />
+            <state vertical-scroll-proportion="-5.53125">
+              <caret line="93" column="11" selection-start-line="93" selection-start-column="11" selection-end-line="93" selection-end-column="11" />
               <folding>
                 <element signature="e#978#986#0" expanded="true" />
                 <element signature="e#1047#1055#0" expanded="true" />
-                <element signature="e#2289#2797#0" expanded="true" />
-                <element signature="e#2796#2797#0" expanded="true" />
-                <element signature="e#2928#3870#0" expanded="true" />
-                <element signature="e#3869#3870#0" expanded="true" />
+                <element signature="e#2289#2795#0" expanded="true" />
+                <element signature="e#2794#2795#0" expanded="true" />
+                <element signature="e#2926#3467#0" expanded="true" />
+                <element signature="e#3466#3467#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1953,15 +1953,15 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/java/am/tabfragment/Tab3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25">
-          <caret line="140" column="13" selection-start-line="140" selection-start-column="13" selection-end-line="140" selection-end-column="13" />
+        <state vertical-scroll-proportion="-5.53125">
+          <caret line="93" column="11" selection-start-line="93" selection-start-column="11" selection-end-line="93" selection-end-column="11" />
           <folding>
             <element signature="e#978#986#0" expanded="true" />
             <element signature="e#1047#1055#0" expanded="true" />
-            <element signature="e#2289#2797#0" expanded="true" />
-            <element signature="e#2796#2797#0" expanded="true" />
-            <element signature="e#2928#3870#0" expanded="true" />
-            <element signature="e#3869#3870#0" expanded="true" />
+            <element signature="e#2289#2795#0" expanded="true" />
+            <element signature="e#2794#2795#0" expanded="true" />
+            <element signature="e#2926#3467#0" expanded="true" />
+            <element signature="e#3466#3467#0" expanded="true" />
           </folding>
         </state>
       </provider>

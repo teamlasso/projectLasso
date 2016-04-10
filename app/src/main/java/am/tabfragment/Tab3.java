@@ -75,8 +75,6 @@ public class Tab3 extends Fragment {
                     test.putExtra("user", members.get(position));
                     startActivityForResult(test, 2);
                 }
-
-
             }
         });
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -84,14 +82,6 @@ public class Tab3 extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                members.add(new User("A B", R.mipmap.face1, "airyimbin@gmail.com", "1234567890"));
-//                adapter.notifyDataSetChanged();
-//                membersList.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        membersList.setSelection(membersList.getCount()-1);
-//                    }
-//                });
                 if(group) {
                     Intent addUser = new Intent(getActivity(), TYAddSearchUsers.class);
                     startActivityForResult(addUser, 0);
@@ -102,13 +92,6 @@ public class Tab3 extends Fragment {
                 }
             }
         });
-
-        //Testing
-        //ContactsListAdapter adapter = new ContactsListAdapter(this, members);
-        //setListAdapter(adapter);
-
-
-
     }
 
     @Override
@@ -313,10 +296,9 @@ public class Tab3 extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }else if(string.equals("nogroup")){
+            }else if(string.equals("nogroup")) {
                 groupName.setText("no group");
             }
-            //reloadData();
             adapter.notifyDataSetChanged();
         }
 
