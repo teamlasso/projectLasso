@@ -1,11 +1,11 @@
-<<<<<<< HEAD
-# projectLasso
-Our cs370 project
-=======
-# Our git protocol
-1) Before working, pull most up-to-date code from ‘feature’ branch
-   > base: <your initials>     compare: feature
 
-2) After working, push commits to your branch, then merge it with ‘feature’ branch
-   > base: feature     compare: <your initials>
->>>>>>> ad1ed55d6d898c856012fa848e65739ffc843559
+#Lasso
+This Project was created for a CS370 Software Engineering with Practicum Course at Emory University (Spring 2016).
+
+It was created by:
+Rachel Goodman @rgoodm2 (Product Owner)
+Will Kelly @wk0 (Scrum Master)
+Danny Deutsch @DannyDeutsch (Team Member)
+Amanda McClintock @AmandaMcClintock (Team Member)
+Tim Yim @airyimbin (Team Member)
+
