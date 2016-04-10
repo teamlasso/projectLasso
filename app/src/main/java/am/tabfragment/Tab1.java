@@ -180,19 +180,19 @@ public class Tab1 extends Fragment implements
 
     public void onLocationChanged(Location location) {
         // Report to the UI that the location was updated
-        String msg = "Updated Location: " +
-                Double.toString(location.getLatitude()) + "," +
-                Double.toString(location.getLongitude());
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        //String msg = "Updated Location: " +
+                //Double.toString(location.getLatitude()) + "," +
+                //Double.toString(location.getLongitude());
+        //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng)      // Sets the center of the map to Mountain View
-                .zoom(18)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
-                .tilt(45)                   // Sets the tilt of the camera to 30 degrees
-                .build();                   // Creates a CameraPosition from the builder
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        //CameraPosition cameraPosition = new CameraPosition.Builder()
+        //        .target(latLng)      // Sets the center of the map to Mountain View
+        //        .zoom(18)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
+        //        .tilt(45)                   // Sets the tilt of the camera to 30 degrees
+        //        .build();                   // Creates a CameraPosition from the builder
+        //map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
     }
 
