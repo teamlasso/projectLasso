@@ -59,11 +59,12 @@ public class Tab3 extends Fragment {
 
         currentUser = new TYUser("airyimbin", R.mipmap.face, "airyimbin", "1234567", "airyimbin", 1);
         members.add(new TYUser("Members"));
-        new TYMySQLHandler().execute("s", currentUser.getUsername());
+
         adapter = new MyListAdapter(members);
         membersList = (ListView) view.findViewById(R.id.membersList);
         membersList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        new TYMySQLHandler().execute("s", currentUser.getUsername());
         membersList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -148,20 +149,11 @@ public class Tab3 extends Fragment {
         }
         else if(requestCode == 2){
             if(resultCode == Activity.RESULT_OK){
-
-                members = new ArrayList<TYUser>();
-                members.add(new TYUser("Members"));
-                adapter.clear();
-
-
                 new TYMySQLHandler().execute("s", currentUser.getUsername());
             }
         }
     }
-    private void reloadData(){
-        adapter.addAll(members);
-        adapter.notifyDataSetChanged();
-    }
+
 
 
     private class MyListAdapter extends ArrayAdapter<TYUser> {
@@ -256,6 +248,8 @@ public class Tab3 extends Fragment {
         @Override
         protected void onPreExecute(){
             bar.setVisibility(View.VISIBLE);
+            adapter.clear();
+            members.add(new TYUser("Members"));
         }
 
         @Override
@@ -323,6 +317,7 @@ public class Tab3 extends Fragment {
                 groupName.setText("no group");
             }
             //reloadData();
+            adapter.notifyDataSetChanged();
         }
 
 
