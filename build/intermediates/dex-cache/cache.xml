@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-8.4.0_5ade72643b84afe235ab62b9402a191f7ba556ed.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_777f4773ec0190cae2e37c8ad91fb423b228b710.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.1.1_56a63f8d14894278fdcd786ccc8c350fe20f9df0.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-8.4.0_391491fc14c820cd9c3a86c94d8239fe7fe414bb.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_c954de89367d4bf2e83f3a21bc84f0cef44c32db.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_f0629c76654883e7912ea7db79645c8f7e8de88a.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/exploded-aar/com.github.hotchemi/permissionsdispatcher/2.0.7/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="29af0f4b1d0f855e54d965157ab303ccd0a033d0">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/com.github.hotchemi-permissionsdispatcher-2.0.7_ab7a3989ceb47016b7279a2bf351bb7bee6f56cc.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/okio-1.6.0_236d2859ee6bf5f7ede80403a734492feb46ebd4.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.4.0_46516cfaf2e18b31f1af1f39cccce061e6823a4a.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_db9ef90fd722bdaeb7b48e9653e597083f903a02.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/src/main/okhttp-3.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="f7873a2ebde246a45c2a8d6f3247108b4c88a879">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/okhttp-3.2.0_08a69e0c6f546c3573da28c79bf7d0ee308cc940.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.1.1_700041a2605fe9f4e5bfb9cf36b9ca8a0a660fbc.jar" />
+    </item>
+    <item
+        jar="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/Users/Amanda/Documents/cs370/projectLasso/projectLasso/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-location-8.4.0_218eafd359c2434d4f3733e49c988992aff9560e.jar" />
+    </item>
+
+</items>
