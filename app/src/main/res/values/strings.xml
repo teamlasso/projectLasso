@@ -17,4 +17,6 @@
         completions."
     </string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_rglogin">Sign in</string>
+    <string name="title_activity_rgregister">RGRegister</string>
 </resources>
