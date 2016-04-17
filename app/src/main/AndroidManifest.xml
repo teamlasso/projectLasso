@@ -45,17 +45,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-<<<<<<< HEAD
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-=======
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
->>>>>>> 1adfe51300ef483a298b6c1739e0342d1c49e1ca
         </activity>
         <!--
         <activity

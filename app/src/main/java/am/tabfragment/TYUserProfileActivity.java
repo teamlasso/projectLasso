@@ -32,7 +32,7 @@ public class TYUserProfileActivity extends AppCompatActivity {
         imageView.setImageResource(user.getImageID());
 
         TextInputLayout inputName = (TextInputLayout) findViewById(R.id.input_layout_name);
-        
+
 
         //Setting the name of the User
         TextView nameText = (EditText) findViewById(R.id.userName);
