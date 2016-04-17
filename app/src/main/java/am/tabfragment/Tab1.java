@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -50,6 +51,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -71,6 +74,20 @@ public class Tab1 extends Fragment implements
     private LocationRequest mLocationRequest;
     private long UPDATE_INTERVAL = 60000;  /* 60 secs */
     private long FASTEST_INTERVAL = 5000; /* 5 secs */
+
+    public String userName = "johndoe";
+    List<userLatLng> userListForMap = new ArrayList<userLatLng>();
+
+    public static boolean containsId(List<userLatLng> list, int currentUserNumber) {
+        for (userLatLng object : list) {
+            if (object.getUserNumber() == currentUserNumber) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,6 +112,7 @@ public class Tab1 extends Fragment implements
         // This is all preset sample code for the Map.
         // It adds five markers at Emory and moves the camera to center
         //==========================================================================================
+        /*
         LatLng emoryMathCS = new LatLng(33.790235, -84.326577);
         map.addMarker(new MarkerOptions().position(emoryMathCS).title("Tim").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         map.moveCamera(CameraUpdateFactory.newLatLng(emoryMathCS));
@@ -114,11 +132,12 @@ public class Tab1 extends Fragment implements
         LatLng gym = new LatLng(33.793427, -84.325682);
         map.addMarker(new MarkerOptions().position(gym).title("Danny").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
         map.moveCamera(CameraUpdateFactory.newLatLng(gym));
+        */
         //==========================================================================================
 
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(gym)      // Sets the center of the map to Mountain View
+                .target(new LatLng(33.793427, -84.325682))      // Sets the center of the map to Mountain View
                 .zoom(16)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
                 .tilt(45)                   // Sets the tilt of the camera to 30 degrees
                 .build();                   // Creates a CameraPosition from the builder
@@ -169,6 +188,8 @@ public class Tab1 extends Fragment implements
                     .build();                   // Creates a CameraPosition from the builder
             map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
+            //new TYMySQLHandler().execute("insert", userName);
+
         } else {
             Toast.makeText(getActivity(), "Current location was null, enable GPS on emulator!", Toast.LENGTH_SHORT).show();
         }
@@ -188,7 +209,7 @@ public class Tab1 extends Fragment implements
             ActivityCompat.requestPermissions(getActivity(), new String[]{/*Manifest.permission.ACCESS_COARSE_LOCATION,*/ Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                 mLocationRequest, this);
+                mLocationRequest, this);
     }
 
     public void onLocationChanged(Location location) {
@@ -198,7 +219,20 @@ public class Tab1 extends Fragment implements
                 //Double.toString(location.getLongitude());
         //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 
+
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        String lat = "" + location.getLatitude();
+        String lon = "" + location.getLongitude();
+
+        new TYMySQLHandler().execute("grab", userName);
+
+        new TYMySQLHandler().execute("insert", userName, lat, lon);
+
+        map.clear();
+        for (userLatLng u : userListForMap){
+            map.addMarker(new MarkerOptions().position(u.getLatLng()).title(u.getUserName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        }
 
         //CameraPosition cameraPosition = new CameraPosition.Builder()
         //        .target(latLng)      // Sets the center of the map to Mountain View
@@ -338,6 +372,21 @@ public class Tab1 extends Fragment implements
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     class TYMySQLHandler extends AsyncTask<String, String , String> {
 
 
@@ -368,10 +417,10 @@ public class Tab1 extends Fragment implements
         protected String doInBackground(String... params) {
 
 
-            if(params[0].equals("s")) {
+            if(params[0].equals("grab")) {
 
                 try {
-                    resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/grabGroupMembers.php?username=" + params[1]);
+                    resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/grabLocation.php?username=" + params[1]);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -387,15 +436,42 @@ public class Tab1 extends Fragment implements
 
                         for (int i = 0; i < resultArray.length(); i++) {
                             JSONObject temp = resultArray.getJSONObject(i);
-                            TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
+                            String name = temp.getString("name");
+                            Double lat = temp.getDouble("lat");
+                            Double lng = temp.getDouble("lng");
+                            int userNumber = temp.getInt("iduser");
+                            //implement list adding each user, make a global so can access from Map
+                            userLatLng newUser = new userLatLng(userNumber, name, lat, lng);
+
+
+                            //Check if user number is in list, then update or add new user
+                            if (containsId(userListForMap, newUser.getUserNumber())){
+                                //update latlng in list
+                                for(userLatLng u: userListForMap){
+                                    if (u.getUserNumber() == userNumber) {
+                                        u.latlng = newUser.getLatLng();
+                                    }
+                                }
+                            }
+                            else {
+                                userListForMap.add(newUser);
+                            }
 
                         }
-                    }
+                    } 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            else if(params[0].equals("a")){
+            else if(params[0].equals("insert")){
+                //from onLocationChange ("insert", "username", "lat", "lng");
+
+                //I'm airyimbin but he is already in the database, need to check or will it update?
+                try {
+                    resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/insertLocation.php?username=" + params[1] + "&lat=" + params[2] + "&lng=" +params[3]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
 
@@ -412,4 +488,42 @@ public class Tab1 extends Fragment implements
 
     }
 
+
+    class userLatLng {
+        private int userNumber;
+        private String userName;
+        private double lat;
+        private double lng;
+        private LatLng latlng;// = new LatLng(33.790235, -84.326577);
+
+        public userLatLng(int userNumber, String userName, double lat, double lng){
+            super();
+            this.userNumber = userNumber;
+            this.userName = userName;
+            this.lat = lat;
+            this.lng = lng;
+
+            latlng = new LatLng(lat, lng);
+        }
+        public int getUserNumber(){
+            return userNumber;
+        }
+
+        public String getUserName(){
+            return userName;
+        }
+
+        public double getLat(){
+            return lat;
+        }
+
+        public double getLng(){
+            return lng;
+        }
+
+        public LatLng getLatLng(){
+            return latlng;
+        }
+
+    }
 }
