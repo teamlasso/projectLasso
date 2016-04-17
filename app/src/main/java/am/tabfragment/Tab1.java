@@ -44,7 +44,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.SupportMapFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.io.InputStream;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -337,6 +342,10 @@ public class Tab1 extends Fragment implements
 
 
         String resultString = "";
+        JSONObject result = null;
+        JSONArray resultArray = null;
+
+        InputStream is = null;
         OkHttpClient client = new OkHttpClient();
 
         public TYMySQLHandler(){
@@ -359,21 +368,44 @@ public class Tab1 extends Fragment implements
         protected String doInBackground(String... params) {
 
 
-            try {
-                resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/insertUserGroupID.php?username=" + params[0] + "&groupname="+params[1]);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(params[0].equals("s")) {
+
+                try {
+                    resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/grabGroupMembers.php?username=" + params[1]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    System.out.println(resultString);
+                    result = new JSONObject(resultString);
+
+
+                    resultArray = result.getJSONArray("users");
+                    if (result.getInt("success") == 1) {
+
+
+                        for (int i = 0; i < resultArray.length(); i++) {
+                            JSONObject temp = resultArray.getJSONObject(i);
+                            TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
+
+                        }
+                    } 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if(params[0].equals("a")){
+
             }
 
-
-
-            return null;
+            return "noparams";
         }
 
 
         @Override
         protected void onPostExecute(String string){
-            
+
         }
 
 
