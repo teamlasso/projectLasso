@@ -42,7 +42,11 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!--
         <activity
@@ -57,11 +61,7 @@
         <activity
             android:name=".RGLoginActivity"
             android:label="@string/title_activity_rglogin" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".RGRegister"

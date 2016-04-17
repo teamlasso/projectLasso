@@ -3,6 +3,7 @@ package am.tabfragment;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,15 +31,21 @@ public class TYUserProfileActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.item_icon);
         imageView.setImageResource(user.getImageID());
 
-        //Setting the name of the User
-        TextView nameText = (TextView) findViewById(R.id.userName);
-        nameText.setText(user.getUsername());
+        TextInputLayout inputName = (TextInputLayout) findViewById(R.id.input_layout_name);
+        
 
-        TextView emailText = (TextView) findViewById(R.id.userEmail);
+        //Setting the name of the User
+        TextView nameText = (EditText) findViewById(R.id.userName);
+        nameText.setText(user.getName());
+
+        TextView emailText = (EditText) findViewById(R.id.userEmail);
         emailText.setText(user.getEmail());
 
-        TextView phoneText = (TextView) findViewById(R.id.userPhoneNumber);
+        TextView phoneText = (EditText) findViewById(R.id.userPhoneNumber);
         phoneText.setText(user.getPhoneNumber());
+
+        TextView usernameText = (EditText) findViewById(R.id.userUsername);
+        usernameText.setText(user.getUsername());
 
         Button remove = (Button) findViewById(R.id.removebutton);
         remove.setOnClickListener(new View.OnClickListener() {

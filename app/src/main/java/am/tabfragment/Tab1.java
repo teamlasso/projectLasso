@@ -390,7 +390,7 @@ public class Tab1 extends Fragment implements
                             TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
 
                         }
-                    } 
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
