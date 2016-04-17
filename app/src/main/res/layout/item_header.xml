@@ -9,8 +9,8 @@
         android:id="@+id/separator"
         android:text="Header"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#757678"
-        android:textColor="#f5c227" />
+        android:layout_height="33dp"
+        android:background="#00897B"
+        android:textColor="#fFCA28" />
 
 </LinearLayout>
