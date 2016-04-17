@@ -19,34 +19,20 @@
         android:maxHeight="100dp"
         android:maxWidth="100dp"
         android:src="@mipmap/face" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/userName"
-        android:layout_alignBottom="@+id/item_icon"
-        android:layout_centerHorizontal="true" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/userEmail"
-        android:layout_below="@+id/userName"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/userPhoneNumber"
-        android:layout_below="@+id/userEmail"
-        android:layout_alignStart="@+id/userEmail" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.design.widget.TextInputLayout>
 
     <Button
         android:layout_width="wrap_content"
@@ -55,4 +41,52 @@
         android:id="@+id/removebutton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.design.widget.TextInputLayout>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/userUsername"
+        android:layout_below="@+id/item_icon"
+        android:layout_alignStart="@+id/userPhoneNumber"
+        android:layout_alignEnd="@+id/input_layout_name"
+        android:hint="Username" />
+
+    <EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:inputType="phone"
+    android:ems="10"
+    android:id="@+id/userPhoneNumber"
+        android:layout_below="@+id/userUsername"
+        android:layout_alignStart="@+id/userEmail"
+        android:layout_alignEnd="@+id/input_layout_name"
+        android:hint="Phone Number" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/userEmail"
+        android:layout_below="@+id/userPhoneNumber"
+        android:layout_alignStart="@+id/userName"
+        android:layout_alignEnd="@+id/input_layout_name"
+        android:hint="Email" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/userName"
+        android:layout_above="@+id/userUsername"
+        android:layout_alignEnd="@+id/input_layout_name"
+        android:layout_toEndOf="@+id/item_icon"
+        android:hint="Name" />
 </RelativeLayout>
