@@ -195,7 +195,9 @@ public class Tab2 extends Fragment {
         }
 
         @Override
-        protected void onPreExecute() { }
+        protected void onPreExecute() {
+            adapter.clear();
+        }
 
         @Override
         protected String doInBackground(String... params)

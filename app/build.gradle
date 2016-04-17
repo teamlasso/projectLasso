@@ -18,6 +18,7 @@ android {
         }
     }
 }
+
 apply plugin: 'android-apt'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
