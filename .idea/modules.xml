@@ -3,7 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/projectLasso.iml" filepath="$PROJECT_DIR$/projectLasso.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/lasso.iml" filepath="$PROJECT_DIR$/lasso.iml" />
+>>>>>>> d4578d5379536b20877ceaddc0c0a361e7a6355d
     </modules>
   </component>
 </project>
