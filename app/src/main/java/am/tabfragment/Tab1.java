@@ -139,7 +139,7 @@ public class Tab1 extends Fragment implements
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(33.793427, -84.325682))      // Sets the center of the map to Mountain View
-                .zoom(16)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
+                .zoom(17)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
                 .tilt(45)                   // Sets the tilt of the camera to 30 degrees
                 .build();                   // Creates a CameraPosition from the builder
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -444,7 +444,7 @@ public class Tab1 extends Fragment implements
                             int userNumber = temp.getInt("iduser");
                             //String username = temp.getString("username");
                             //implement list adding each user, make a global so can access from Map
-                            userLatLng newUser = new userLatLng(userNumber, /*username,*/ name, lat, lng);
+                            userLatLng newUser = new userLatLng(userNumber, name, lat, lng, i);
 
 
                             //Check if user number is in list, then update or add new user
@@ -501,9 +501,11 @@ public class Tab1 extends Fragment implements
         private LatLng latlng;
 
         private BitmapDescriptor color;
-        //private String[] colors = new String['AZURE', ];
+        private BitmapDescriptor[] colors = new BitmapDescriptor[10];
 
-        public userLatLng(int userNumber, String name, /*String username,*/ double lat, double lng){
+
+
+        public userLatLng(int userNumber, String name, double lat, double lng, int order){
             super();
             this.userNumber = userNumber;
             this.name = name;
@@ -512,7 +514,20 @@ public class Tab1 extends Fragment implements
             this.lng = lng;
 
             latlng = new LatLng(lat, lng);
-            color = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
+
+            //Fill colors array
+            colors[0] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
+            colors[1] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+            colors[2] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA);
+            colors[3] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET);
+            colors[4] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
+            colors[5] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN);
+            colors[6] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
+            colors[7] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
+            colors[8] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE);
+            colors[9] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
+
+            color = colors[(order % 10)];
         }
         public int getUserNumber(){
             return userNumber;
