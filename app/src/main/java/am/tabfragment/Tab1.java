@@ -38,6 +38,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -75,7 +76,8 @@ public class Tab1 extends Fragment implements
     private long UPDATE_INTERVAL = 60000;  /* 60 secs */
     private long FASTEST_INTERVAL = 5000; /* 5 secs */
 
-    public String userName = "johndoe";
+    public String userName = "renesantiago";
+    public String name = "Rene Santiago";
     List<userLatLng> userListForMap = new ArrayList<userLatLng>();
 
     public static boolean containsId(List<userLatLng> list, int currentUserNumber) {
@@ -86,7 +88,6 @@ public class Tab1 extends Fragment implements
         }
         return false;
     }
-
 
 
     @Override
@@ -230,10 +231,11 @@ public class Tab1 extends Fragment implements
         new TYMySQLHandler().execute("insert", userName, lat, lon);
 
         map.clear();
-        for (userLatLng u : userListForMap){
-            map.addMarker(new MarkerOptions().position(u.getLatLng()).title(u.getUserName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        for (userLatLng u : userListForMap) {
+            if (!(u.getName().equals(name))) {
+                map.addMarker(new MarkerOptions().position(u.getLatLng()).title(u.getName()).icon(u.getColor()));
+            }
         }
-
         //CameraPosition cameraPosition = new CameraPosition.Builder()
         //        .target(latLng)      // Sets the center of the map to Mountain View
         //        .zoom(18)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
@@ -440,8 +442,9 @@ public class Tab1 extends Fragment implements
                             Double lat = temp.getDouble("lat");
                             Double lng = temp.getDouble("lng");
                             int userNumber = temp.getInt("iduser");
+                            //String username = temp.getString("username");
                             //implement list adding each user, make a global so can access from Map
-                            userLatLng newUser = new userLatLng(userNumber, name, lat, lng);
+                            userLatLng newUser = new userLatLng(userNumber, /*username,*/ name, lat, lng);
 
 
                             //Check if user number is in list, then update or add new user
@@ -490,28 +493,38 @@ public class Tab1 extends Fragment implements
 
 
     class userLatLng {
+
         private int userNumber;
-        private String userName;
+        private String name;
         private double lat;
         private double lng;
-        private LatLng latlng;// = new LatLng(33.790235, -84.326577);
+        private LatLng latlng;
 
-        public userLatLng(int userNumber, String userName, double lat, double lng){
+        private BitmapDescriptor color;
+        //private String[] colors = new String['AZURE', ];
+
+        public userLatLng(int userNumber, String name, /*String username,*/ double lat, double lng){
             super();
             this.userNumber = userNumber;
-            this.userName = userName;
+            this.name = name;
+            //this.username = username;
             this.lat = lat;
             this.lng = lng;
 
             latlng = new LatLng(lat, lng);
+            color = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
         }
         public int getUserNumber(){
             return userNumber;
         }
 
-        public String getUserName(){
-            return userName;
+        public String getName(){
+            return name;
         }
+
+        //public String getUsername(){
+            //return username;
+        //}
 
         public double getLat(){
             return lat;
@@ -525,5 +538,8 @@ public class Tab1 extends Fragment implements
             return latlng;
         }
 
+        public BitmapDescriptor getColor(){
+            return color;
+        }
     }
 }
