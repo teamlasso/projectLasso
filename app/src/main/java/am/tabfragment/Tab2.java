@@ -67,8 +67,8 @@ public class Tab2 extends Fragment {
                 feedListView.post(new Runnable() {
                     @Override
                     public void run() {
-                        feedListView.smoothScrollToPosition(0);
-                        // feedListView.setSelection(feedListView.getCount()-1);
+                        //feedListView.smoothScrollToPosition(0);
+                        feedListView.setSelection(feedListView.getCount()-1);
                     }
                 } );
             }
@@ -82,7 +82,7 @@ public class Tab2 extends Fragment {
     /* Generic method for adding FeedItem to feed */
     private void addToFeed(int profPicId, int statusPicId, String name, String status)
     {
-        feed.add(0, new FeedItem(profPicId, statusPicId, name, status, this.getTimestamp()));
+        feed.add(new FeedItem(profPicId, statusPicId, name, status, this.getTimestamp()));
     }
 
 
@@ -221,7 +221,7 @@ public class Tab2 extends Fragment {
                             JSONObject temp = resultArray.getJSONObject(i);
 
                             //TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
-                            feed.add(0, new FeedItem(R.mipmap.face, R.mipmap.face, temp.getString("username"), temp.getString("status"), temp.getString("timestamp")));
+                            feed.add(new FeedItem(R.mipmap.face, R.mipmap.face, temp.getString("username"), temp.getString("status"), temp.getString("timestamp")));
 
                             //adapter.notifyDataSetChanged();
                         }
