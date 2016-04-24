@@ -190,7 +190,7 @@ public class Tab1 extends Fragment implements
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(latLng)      // Sets the center of the map to Mountain View
-                    .zoom(16)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
+                    .zoom(15)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
                     .tilt(45)                   // Sets the tilt of the camera to 30 degrees
                     .build();                   // Creates a CameraPosition from the builder
             map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -238,35 +238,44 @@ public class Tab1 extends Fragment implements
 
         map.clear();
 
-        MarkerOptions[] markers = new MarkerOptions[userListForMap.size()];
+        Marker[] markers = new Marker[userListForMap.size()];
 
         int countMarker = 0;
         for (userLatLng u : userListForMap) {
             if (!(u.getName().equals(name))) {
-                markers[countMarker] = new MarkerOptions().position(u.getLatLng()).title(u.getName()).icon(u.getColor());
-                map.addMarker(markers[countMarker]);
+                markers[countMarker] = map.addMarker(new MarkerOptions().position(u.getLatLng()).title(u.getName()).icon(u.getColor()));
                 countMarker++;
-                map.addMarker(new MarkerOptions().position(u.getLatLng()).title(u.getName()).icon(u.getColor()));
             }
         }
-
 
         //UPDATE CAMERA around all markers
-        LatLngBounds mapBounds = new LatLngBounds(latLng,latLng);
-        for (MarkerOptions marker : markers){
-            if (marker != null && marker.getPosition() != null){
-                mapBounds.including(marker.getPosition());
-                System.out.println(marker.getTitle());
-            }
-        }
+        //LatLngBounds mapBounds = new LatLngBounds(latLng,latLng);
+        //LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        //if (markers != null){
+        //    for (Marker marker : markers){
+        //        if (marker != null && marker.getPosition() != null){
+        //            builder.include(marker.getPosition());
+        //        }
+        //    }
+        //    LatLngBounds bounds = builder.build();
+        //}
+
+
+
+        //LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        //for (MarkerOptions marker : markers) {
+        //    builder.include(marker.getPosition());
+        //}
+        //LatLngBounds bounds = builder.build();
 
         //LatLngBounds bound = builder.build();
+        //System.out.println(bounds);
+        //System.out.println(bounds);
+        //System.out.println(bounds);
+        //int padding = 0; // offset from edges of the map in pixels
+        //CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(mapBounds, padding);
 
-
-        int padding = 0; // offset from edges of the map in pixels
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(mapBounds, padding);
-
-        map.moveCamera(cu);
+        //map.moveCamera(cu);
     }
 
     @Override
