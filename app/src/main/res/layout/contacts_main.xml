@@ -10,7 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.tim_pc.myapplication.MainActivity"
     android:weightSum="1">
-
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:indeterminate="true"
@@ -19,21 +18,17 @@
         android:visibility="gone"
         android:id="@+id/progressBar"
         android:layout_gravity="center_horizontal" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView4"
         android:text="No Group" />
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/membersList"
         tools:listitem="@android:layout/simple_list_item_1" />
-
-
 </LinearLayout>
 
 
