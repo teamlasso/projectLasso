@@ -12,7 +12,6 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         manager = new SessionManager(Splash.this);
-        manager.logout();
         Thread background = new Thread(){
             public void run(){
                 try{
