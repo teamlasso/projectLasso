@@ -53,12 +53,12 @@ public class Tab3 extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         View view = getView();
-
+        SessionManager manager = new SessionManager(getContext());
         group = false;
         bar = (ProgressBar) view.findViewById(R.id.progressBar);
         groupName = (TextView) view.findViewById(R.id.textView4);
 
-        currentUser = new TYUser("airyimbin", R.mipmap.face, "airyimbin", "1234567", "airyimbin", 1);
+        currentUser = manager.getUserDetails();
         members.add(new TYUser("Members"));
 
         adapter = new MyListAdapter(members);
@@ -256,7 +256,7 @@ public class Tab3 extends Fragment {
 
                         for (int i = 0; i < resultArray.length(); i++) {
                             JSONObject temp = resultArray.getJSONObject(i);
-                            TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
+                            TYUser user = new TYUser(temp.getString("name"), R.mipmap.face, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
                             members.add(1, user);
                             //adapter.add(user);
                             //adapter.notifyDataSetChanged();

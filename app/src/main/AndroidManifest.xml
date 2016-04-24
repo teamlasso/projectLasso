@@ -41,12 +41,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <!--
         <activity
             android:name=".Tab1"
@@ -59,13 +54,20 @@
         <activity android:name=".TYAddGroup" />
         <activity
             android:name=".RGLoginActivity"
-            android:label="@string/title_activity_rglogin" >
+            android:label="@string/title_activity_rglogin">
 
         </activity>
         <activity
             android:name=".RGRegister"
             android:label="@string/title_activity_rgregister"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

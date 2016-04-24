@@ -97,6 +97,7 @@ import okhttp3.Response;
 public class RGLoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    private ProgressDialog progressDialog;
 
     @Bind(R.id.input_UserName) EditText LoginUserName;
     @Bind(R.id.input_password) EditText LoginPW;
@@ -139,22 +140,13 @@ public class RGLoginActivity extends AppCompatActivity {
 
         Button2Login.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(RGLoginActivity.this);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
+
 
         String Username = LoginUserName.getText().toString();
         String password = LoginPW.getText().toString();
+        new TYMySQLHandler().execute(Username, password);
 
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        onLoginSuccess();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
     }
 
 
@@ -204,7 +196,7 @@ public class RGLoginActivity extends AppCompatActivity {
         } else {
             LoginPW.setError(null);
         }
-        new TYMySQLHandler().execute(CurrentUserName,Currentpassword);
+
 
 
         return valid;
@@ -230,7 +222,10 @@ public class RGLoginActivity extends AppCompatActivity {
         }
         @Override
         protected void onPreExecute(){
-
+            progressDialog = new ProgressDialog(RGLoginActivity.this);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Authenticating...");
+            progressDialog.show();
         }
 
         @Override
@@ -247,16 +242,25 @@ public class RGLoginActivity extends AppCompatActivity {
                 result = new JSONObject(resultString);
 
 
-                resultArray = result.getJSONArray("user");
+
                 if(result.getInt("success") == 1) {
+                    resultArray = result.getJSONArray("user");
+                    SessionManager manager = new SessionManager(RGLoginActivity.this);
 
-
-                    for (int i = 0; i < resultArray.length(); i++) {
-                        JSONObject temp = resultArray.getJSONObject(i);
-                        TYUser user = new TYUser(temp.getString("name"), R.mipmap.ic_launcher, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
+                    JSONObject temp = resultArray.getJSONObject(0);
+                    TYUser user;
+                    if(!temp.getString("groupID").equals("null")) {
+                        user = new TYUser(temp.getString("name"), R.mipmap.ic_launcher, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
+                    }else{
+                        user = new TYUser(temp.getString("name"), R.mipmap.ic_launcher, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), 1);
                     }
-                }else if(result.getInt("success") == 0){
 
+                    manager.setLoginStatus(user);
+                    Intent intent = new Intent(RGLoginActivity.this, MainActivity.class);
+                    finish();
+                    startActivity(intent);
+                }else if(result.getInt("success") == 0){
+                    return "Login failed";
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -269,7 +273,11 @@ public class RGLoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String string){
-
+            progressDialog.dismiss();
+            if(string != null){
+                Toast.makeText(getBaseContext(), "Lasso Login failed", Toast.LENGTH_LONG).show();
+                Button2Login.setEnabled(true);
+            }
         }
 
 
