@@ -150,7 +150,7 @@ public class Tab1 extends Fragment implements
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(33.793427, -84.325682))      // Sets the center of the map to Mountain View
-                .zoom(17)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
+                .zoom(18)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
                 .tilt(45)                   // Sets the tilt of the camera to 30 degrees
                 .build();                   // Creates a CameraPosition from the builder
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -195,7 +195,7 @@ public class Tab1 extends Fragment implements
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(latLng)      // Sets the center of the map to current loc
-                    .zoom(15)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
+                    .zoom(18)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
                     .tilt(45)                   // Sets the tilt of the camera to 30 degrees
                     .build();                   // Creates a CameraPosition from the builder
             map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
