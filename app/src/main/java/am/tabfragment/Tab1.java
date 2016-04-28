@@ -80,6 +80,9 @@ public class Tab1 extends Fragment implements
     public String userName;
     public String name;
     List<userLatLng> userListForMap = new ArrayList<userLatLng>();
+    List<userLatLng> userListToCheckToRemoveOld = new ArrayList<userLatLng>();
+
+
 
     public static boolean containsId(List<userLatLng> list, int currentUserNumber) {
         for (userLatLng object : list) {
@@ -89,6 +92,8 @@ public class Tab1 extends Fragment implements
         }
         return false;
     }
+
+
 
 
     @Override
@@ -189,7 +194,7 @@ public class Tab1 extends Fragment implements
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(latLng)      // Sets the center of the map to Mountain View
+                    .target(latLng)      // Sets the center of the map to current loc
                     .zoom(15)                   // Sets the zoom  //.bearing(90)   // Sets the orientation of the camera to east
                     .tilt(45)                   // Sets the tilt of the camera to 30 degrees
                     .build();                   // Creates a CameraPosition from the builder
@@ -243,8 +248,10 @@ public class Tab1 extends Fragment implements
         int countMarker = 0;
         for (userLatLng u : userListForMap) {
             if (!(u.getName().equals(name))) {
-                markers[countMarker] = map.addMarker(new MarkerOptions().position(u.getLatLng()).title(u.getName()).icon(u.getColor()));
-                countMarker++;
+                if(u.getLatLng() != null) {
+                    markers[countMarker] = map.addMarker(new MarkerOptions().position(u.getLatLng()).title(u.getName()).icon(u.getColor()));
+                    countMarker++;
+                }
             }
         }
 
@@ -468,17 +475,25 @@ public class Tab1 extends Fragment implements
                     resultArray = result.getJSONArray("users");
                     if (result.getInt("success") == 1) {
 
-
+                        userListToCheckToRemoveOld.clear();
                         for (int i = 0; i < resultArray.length(); i++) {
                             JSONObject temp = resultArray.getJSONObject(i);
                             String name = temp.getString("name");
+
+                            if(temp.isNull("lat") || temp.isNull("lng")){
+                                break;
+                            }
+
                             Double lat = temp.getDouble("lat");
                             Double lng = temp.getDouble("lng");
                             int userNumber = temp.getInt("iduser");
+                            System.out.println(lat);
+                            System.out.println(lng);
                             //String username = temp.getString("username");
                             //implement list adding each user, make a global so can access from Map
-                            userLatLng newUser = new userLatLng(userNumber, name, lat, lng, i);
+                            userLatLng newUser = new userLatLng(userNumber, name, lat, lng);
 
+                            userListToCheckToRemoveOld.add(newUser);
 
                             //Check if user number is in list, then update or add new user
                             if (containsId(userListForMap, newUser.getUserNumber())){
@@ -494,6 +509,23 @@ public class Tab1 extends Fragment implements
                             }
 
                         }
+
+
+
+                        List<userLatLng> resultList = new ArrayList<userLatLng>();
+                        resultList.clear();
+                        for (userLatLng u: userListForMap){
+                            for(userLatLng user: userListToCheckToRemoveOld){
+                                if (u.getUserNumber() == user.getUserNumber()){
+                                    if (!(resultList.contains(u))){
+                                        resultList.add(u);
+                                    }
+                                }
+                            }
+                        }
+
+                        userListForMap = resultList;
+
                     } 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -534,11 +566,21 @@ public class Tab1 extends Fragment implements
         private LatLng latlng;
 
         private BitmapDescriptor color;
-        private BitmapDescriptor[] colors = new BitmapDescriptor[10];
+        private BitmapDescriptor[] colors = new BitmapDescriptor[] {
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE),
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN),
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA),
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET),
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW),
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN),
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE),
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED),
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE),
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE),
+        };
 
 
-
-        public userLatLng(int userNumber, String name, double lat, double lng, int order){
+        public userLatLng(int userNumber, String name, double lat, double lng){
             super();
             this.userNumber = userNumber;
             this.name = name;
@@ -548,19 +590,7 @@ public class Tab1 extends Fragment implements
 
             latlng = new LatLng(lat, lng);
 
-            //Fill colors array
-            colors[0] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
-            colors[1] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
-            colors[2] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA);
-            colors[3] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET);
-            colors[4] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
-            colors[5] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN);
-            colors[6] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
-            colors[7] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
-            colors[8] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE);
-            colors[9] = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
-
-            color = colors[(order % 10)];
+            color = colors[(userNumber % 10)];
         }
         public int getUserNumber(){
             return userNumber;
