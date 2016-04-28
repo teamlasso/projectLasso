@@ -4,7 +4,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -58,7 +57,6 @@
                 android:hint="Email" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- UserName Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,7 +69,6 @@
                 android:hint="UserName" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Password Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,6 +99,5 @@
             android:text="Already a member? Login"
             android:gravity="center"
             android:textSize="16dip"/>
-
     </LinearLayout>
 </ScrollView>

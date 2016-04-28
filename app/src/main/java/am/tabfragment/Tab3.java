@@ -124,9 +124,6 @@ public class Tab3 extends Fragment {
         }
         else if(requestCode == 1){
             if(resultCode == Activity.RESULT_OK){
-                members = new ArrayList<TYUser>();
-                members.add(new TYUser("Members"));
-                adapter.clear();
                 new TYMySQLHandler().execute("s", currentUser.getUsername());
 
             }

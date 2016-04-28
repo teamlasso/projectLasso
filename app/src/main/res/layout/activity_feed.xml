@@ -10,7 +10,6 @@
     tools:context="com.example.tim_pc.myapplication.MainActivity"
     android:weightSum="1"
     >
-    <!--79BCB8 -->
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -46,9 +45,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".20"
                 android:onClick="onClick" />
-
         </LinearLayout>
-
     </RelativeLayout>
-
 </LinearLayout>

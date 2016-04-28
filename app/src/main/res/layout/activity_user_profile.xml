@@ -91,4 +91,13 @@
         android:layout_alignEnd="@+id/input_layout_name"
         android:layout_toEndOf="@+id/item_icon"
         android:hint="Name" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/logout"
+        android:layout_alignTop="@+id/removebutton"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible" />
 </RelativeLayout>
