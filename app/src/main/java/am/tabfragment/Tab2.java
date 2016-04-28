@@ -30,7 +30,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class Tab2 extends Fragment {
-
+    String username;
     private List<FeedItem> feed = new ArrayList<FeedItem>();    //feed list
     EditText mStatusView;   //status textbox
     ArrayAdapter<FeedItem> adapter;
@@ -43,8 +43,9 @@ public class Tab2 extends Fragment {
         adapter = new MyListAdapter(feed);
         final ListView feedListView = (ListView) v2.findViewById(R.id.feedListView);
         feedListView.setAdapter(adapter);
-
-        new TYMySQLHandler().execute("pull", "johndoe");
+        SessionManager manager = new SessionManager(getContext());
+        username = manager.getusername();
+        new TYMySQLHandler().execute("pull", username);
 
         Button mPostStatusButton = (Button) v2.findViewById(R.id.post_status_button);
 
@@ -59,7 +60,7 @@ public class Tab2 extends Fragment {
 
                 //TODO: replace with currentUser information
                 String timestamp = getTimestamp();
-                new TYMySQLHandler().execute("push", "johndoe", status, timestamp, Integer.toString(R.mipmap.face), Integer.toString(R.mipmap.drunk_emoji));
+                new TYMySQLHandler().execute("push", username, status, timestamp, Integer.toString(R.mipmap.face), Integer.toString(R.mipmap.drunk_emoji));
 
                 adapter.notifyDataSetChanged();
 
@@ -250,7 +251,7 @@ public class Tab2 extends Fragment {
         @Override
         protected void onPostExecute(String string) {
             if(string.equals("pushed")){
-                new TYMySQLHandler().execute("pull", "johndoe");
+                new TYMySQLHandler().execute("pull", username);
                 //Todo add to list instead of pulling again.
             }
             adapter.notifyDataSetChanged();

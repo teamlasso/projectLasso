@@ -1,6 +1,8 @@
 package am.tabfragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,13 +12,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class RGRegister extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-
+    ProgressDialog progressDialog;
     @Bind(R.id.input_name) EditText Rname;
     @Bind(R.id.input_email) EditText Remail;
     @Bind(R.id.input_password) EditText rPW;
@@ -56,10 +68,8 @@ public class RGRegister extends AppCompatActivity {
 
         Button2SignUp.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(RGRegister.this);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating your Lasso account...");
-        progressDialog.show();
+
+
 
         String name = Rname.getText().toString();
         String email = Remail.getText().toString();
@@ -67,28 +77,21 @@ public class RGRegister extends AppCompatActivity {
         String phoneNumber = rPNumber.getText().toString();
         String Username = rUserName.getText().toString();
 
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+        new TYMySQLHandler().execute(Username, name, email, phoneNumber, password);
     }
 
 
     public void onSignupSuccess() {
         Button2SignUp.setEnabled(true);
-        setResult(RESULT_OK, null);
+        Intent intent = new Intent();
+        intent.putExtra("username", rUserName.getText().toString());
+        intent.putExtra("password", rPW.getText().toString());
+        setResult(RESULT_OK, intent);
         finish();
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Lasso Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Lasso Signup failed", Toast.LENGTH_LONG).show();
 
         Button2SignUp.setEnabled(true);
     }
@@ -139,5 +142,91 @@ public class RGRegister extends AppCompatActivity {
             rPW.setError(null);
         }
         return valid;
+    }
+
+    class TYMySQLHandler extends AsyncTask<String, String , String> {
+
+
+        JSONObject result = null;
+        JSONArray resultArray = null;
+        String resultString = "";
+        OkHttpClient client = new OkHttpClient();
+
+        public TYMySQLHandler(){
+
+        }
+        String run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }
+        String run(String... params) throws IOException {
+            HttpUrl url = new HttpUrl.Builder()
+                    .scheme("http")
+                    .host("ec2-52-87-164-152.compute-1.amazonaws.com")
+                    .addPathSegment("insertNewUser.php")
+                    .addQueryParameter("username", params[0])
+                    .addQueryParameter("name", params[1])
+                    .addQueryParameter("email", params[2])
+                    .addQueryParameter("phonenumber",params[3])
+                    .addQueryParameter("password", params[4])
+                    .build();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }
+        @Override
+        protected void onPreExecute(){
+            progressDialog = new ProgressDialog(RGRegister.this);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Creating your Lasso account...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            try {
+                resultString = run(params[0], params[1], params[2], params[3], params[4]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                System.out.println(resultString);
+                result = new JSONObject(resultString);
+
+                if(result.getInt("success") == 1){
+                    return "success";
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+
+
+
+                return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(String string){
+            progressDialog.dismiss();
+            if(string != null){
+                onSignupSuccess();
+            }else{
+                onSignupFailed();
+            }
+
+        }
+
+
+
     }
 }

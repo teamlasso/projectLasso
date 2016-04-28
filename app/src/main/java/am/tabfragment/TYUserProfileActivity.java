@@ -27,13 +27,27 @@ public class TYUserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         final TYUser user = getIntent().getParcelableExtra("user");
-
+        final SessionManager manager = new SessionManager(TYUserProfileActivity.this);
         ImageView imageView = (ImageView) findViewById(R.id.item_icon);
         imageView.setImageResource(user.getImageID());
 
         TextInputLayout inputName = (TextInputLayout) findViewById(R.id.input_layout_name);
 
-
+        if(user.getUsername().equals(manager.getusername())){
+            Button logout = (Button) findViewById(R.id.logout);
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    manager.logout();
+                    Intent i = getBaseContext().getPackageManager()
+                            .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    finish();
+                    startActivity(i);
+                }
+            });
+            logout.setVisibility(View.VISIBLE);
+        }
         //Setting the name of the User
         TextView nameText = (EditText) findViewById(R.id.userName);
         nameText.setText(user.getName());

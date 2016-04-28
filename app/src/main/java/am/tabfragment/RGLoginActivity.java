@@ -154,8 +154,9 @@ public class RGLoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-
-                this.finish();
+                LoginUserName.setText(data.getStringExtra("username"));
+                LoginPW.setText(data.getStringExtra("password"));
+                new TYMySQLHandler().execute(data.getStringExtra("username"),data.getStringExtra("password"));
             }
         }
     }

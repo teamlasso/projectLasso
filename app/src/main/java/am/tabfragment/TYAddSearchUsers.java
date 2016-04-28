@@ -118,10 +118,10 @@ public class TYAddSearchUsers extends Activity {
                     for (int i = 0; i < resultArray.length(); i++) {
                         JSONObject temp = resultArray.getJSONObject(i);
                         if((temp.getString("groupID")).equals("null")){
-                            TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), 0);
+                            TYUser user = new TYUser(temp.getString("name"), R.mipmap.face, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), 0);
                             products.add(user);
                         }else {
-                            TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
+                            TYUser user = new TYUser(temp.getString("name"), R.mipmap.face, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
                             products.add(user);
                         }
 
@@ -132,7 +132,9 @@ public class TYAddSearchUsers extends Activity {
                 }
             }else if(params[0].equals("a")){
                 try {
-                    resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/insertNewGroupID.php?currentusername=airyimbin&username=" + params[1]);
+                    SessionManager manager = new SessionManager(TYAddSearchUsers.this);
+                    String currentuser = manager.getusername();
+                    resultString = run("http://ec2-52-87-164-152.compute-1.amazonaws.com/insertNewGroupID.php?currentusername="+ currentuser + "&username=" + params[1]);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
