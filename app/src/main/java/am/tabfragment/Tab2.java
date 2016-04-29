@@ -54,7 +54,7 @@ public class Tab2 extends Fragment {
 
         /* Pull statuses every 2 seconds */
         final Handler h = new Handler();
-        final int delay = 2000;   //2000 milliseconds = 2 seconds
+        final int delay = 5000;   //2000 milliseconds = 2 seconds
         h.postDelayed(new Runnable() {
             public void run() {
                 new TYMySQLHandler().execute("pull", username);
