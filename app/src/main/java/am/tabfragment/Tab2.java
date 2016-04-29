@@ -272,6 +272,7 @@ public class Tab2 extends Fragment {
                 new TYMySQLHandler().execute("pull", username);
             }
             adapter.notifyDataSetChanged();
+            feedListView.setSelection(feedListView.getCount() - 1);
         }
     }
 
