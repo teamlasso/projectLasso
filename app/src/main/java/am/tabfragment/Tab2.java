@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.os.Handler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +33,7 @@ import okhttp3.Response;
 public class Tab2 extends Fragment {
     String username;
     private List<FeedItem> feed = new ArrayList<FeedItem>();    //feed list
+    private List<Integer> feedInt = new ArrayList<Integer>();
     EditText mStatusView;   //status textbox
     ArrayAdapter<FeedItem> adapter;
     View v2;
@@ -49,31 +51,40 @@ public class Tab2 extends Fragment {
 
         Button mPostStatusButton = (Button) v2.findViewById(R.id.post_status_button);
 
-        mPostStatusButton.setOnClickListener(new View.OnClickListener()
-        {
+
+        /* Pull statuses every 2 seconds */
+        final Handler h = new Handler();
+        final int delay = 2000;   //2000 milliseconds = 2 seconds
+        h.postDelayed(new Runnable() {
+            public void run() {
+                new TYMySQLHandler().execute("pull", username);
+                h.postDelayed(this, delay);
+            }
+        }, delay);
+
+
+        mPostStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 mStatusView = (EditText) v2.findViewById(R.id.editText);
                 String status = mStatusView.getText().toString();   //get status String from textbox
                 mStatusView.setText("");
 
-                //TODO: replace with currentUser information
                 String timestamp = getTimestamp();
                 new TYMySQLHandler().execute("push", username, status, timestamp, Integer.toString(R.mipmap.face), Integer.toString(R.mipmap.drunk_emoji));
 
                 adapter.notifyDataSetChanged();
 
-                // Scroll to bottom of list
                 feedListView.post(new Runnable() {
                     @Override
                     public void run() {
-                        //feedListView.smoothScrollToPosition(0);
-                        feedListView.setSelection(feedListView.getCount()-1);
+                        feedListView.setSelection(feedListView.getCount() - 1);
                     }
-                } );
+                });
             }
-        } );
+        });
+
+
 
 
         return v2;
@@ -197,7 +208,6 @@ public class Tab2 extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            adapter.clear();
         }
 
         @Override
@@ -221,8 +231,16 @@ public class Tab2 extends Fragment {
                         for (int i = 0; i < resultArray.length(); i++) {
                             JSONObject temp = resultArray.getJSONObject(i);
 
-                            //TYUser user = new TYUser(temp.getString("name"), R.mipmap.face1, temp.getString("email"), temp.getString("phonenumber"), temp.getString("username"), temp.getInt("groupID"));
-                            feed.add(new FeedItem(R.mipmap.face, R.mipmap.face, temp.getString("username"), temp.getString("status"), temp.getString("timestamp")));
+                            int statusID = temp.getInt("statusID");
+
+                            /* Add only new statuses */
+                            if (!feedInt.contains(statusID)) {
+                                feed.add(new FeedItem(R.mipmap.face, R.mipmap.face, temp.getString("username"), temp.getString("status"), temp.getString("timestamp")));
+                            }
+
+                            if (!feedInt.contains(statusID)) {
+                                feedInt.add(statusID);
+                            }
 
                             //adapter.notifyDataSetChanged();
                         }
@@ -252,7 +270,6 @@ public class Tab2 extends Fragment {
         protected void onPostExecute(String string) {
             if(string.equals("pushed")){
                 new TYMySQLHandler().execute("pull", username);
-                //Todo add to list instead of pulling again.
             }
             adapter.notifyDataSetChanged();
         }
