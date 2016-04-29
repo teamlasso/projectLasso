@@ -37,13 +37,14 @@ public class Tab2 extends Fragment {
     EditText mStatusView;   //status textbox
     ArrayAdapter<FeedItem> adapter;
     View v2;
+    ListView feedListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v2 = inflater.inflate(R.layout.activity_feed, container, false);
 
         adapter = new MyListAdapter(feed);
-        final ListView feedListView = (ListView) v2.findViewById(R.id.feedListView);
+        feedListView = (ListView) v2.findViewById(R.id.feedListView);
         feedListView.setAdapter(adapter);
         SessionManager manager = new SessionManager(getContext());
         username = manager.getusername();
