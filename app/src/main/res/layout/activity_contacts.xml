@@ -18,6 +18,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@android:drawable/ic_input_add"
+        android:adjustViewBounds="false"
+        android:tint="@android:color/white"
         app:backgroundTint="@color/colorPrimary" />
 
 </android.support.design.widget.CoordinatorLayout>
