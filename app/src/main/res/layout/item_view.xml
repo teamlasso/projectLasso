@@ -26,7 +26,8 @@
         android:text="Name Shown Here"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_alignBottom="@+id/item_icon"
-        android:textSize="40dp" />
+        android:textSize="40dp"
+        android:typeface="normal" />
 
 
 </RelativeLayout>
